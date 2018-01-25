@@ -1,10 +1,14 @@
 package com.a21713885.l3.unicaen.android.annonceapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 private  Button voirAnnonce;
@@ -19,6 +23,8 @@ private  Button voirAnnonce;
                 voirAnnonceListner(view);
             }
         });
+
+
     }
 
 
