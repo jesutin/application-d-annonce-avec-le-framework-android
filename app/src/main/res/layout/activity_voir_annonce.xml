@@ -33,14 +33,14 @@
         android:id="@+id/textview"
         android:layout_width="80dp"
         android:layout_height="35dp"
-        android:layout_alignBaseline="@+id/prix5"
-        android:layout_alignBottom="@+id/prix5"
+        android:layout_alignBaseline="@+id/date_pub"
+        android:layout_alignBottom="@+id/date_pub"
         android:layout_alignLeft="@+id/description"
         android:layout_alignStart="@+id/description"
         android:text="Publié le " />
 
     <TextView
-        android:id="@+id/prix5"
+        android:id="@+id/date_pub"
         android:layout_width="220dp"
         android:layout_height="35dp"
         android:layout_below="@+id/description"
@@ -63,53 +63,46 @@
         android:id="@+id/codePostal"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_alignBaseline="@+id/prix"
-        android:layout_alignBottom="@+id/prix"
-        android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp"
-        android:layout_toEndOf="@+id/prix"
-        android:layout_toRightOf="@+id/prix"
+        android:layout_above="@+id/description"
+        android:layout_centerHorizontal="true"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/ville"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:layout_alignBaseline="@+id/codePostal"
-        android:layout_alignBottom="@+id/codePostal"
-        android:layout_marginLeft="13dp"
-        android:layout_marginStart="13dp"
-        android:layout_toEndOf="@+id/codePostal"
-        android:layout_toRightOf="@+id/codePostal"
+        android:layout_above="@+id/description"
+        android:layout_alignEnd="@+id/description"
+        android:layout_alignRight="@+id/description"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/Titre"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignLeft="@+id/image_annonce"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/imageView"
+        android:layout_alignStart="@+id/image_annonce"
         android:layout_marginTop="18dp"
         android:text="Vends Ordinateur HP"
         android:textSize="24dp"
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/image_annonce"
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_below="@+id/Titre"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@mipmap/ic_launcher" />
+        />
 
     <TextView
         android:id="@+id/prix"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView"
-        android:layout_below="@+id/imageView"
+        android:layout_alignLeft="@+id/image_annonce"
+        android:layout_alignStart="@+id/image_annonce"
+        android:layout_below="@+id/image_annonce"
         android:layout_marginTop="18dp"
         android:text="TextView" />
 
@@ -117,9 +110,9 @@
         android:id="@+id/nom"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_alignEnd="@+id/prix5"
-        android:layout_alignRight="@+id/prix5"
-        android:layout_below="@+id/prix5"
+        android:layout_alignEnd="@+id/date_pub"
+        android:layout_alignRight="@+id/date_pub"
+        android:layout_below="@+id/date_pub"
         android:text="textview"
         android:textSize="20dp"
         android:textStyle="bold" />
@@ -133,6 +126,16 @@
         android:layout_below="@+id/textview"
         android:text="Contacter"
         android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="10dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/description"
+        android:layout_toEndOf="@+id/prix"
+        android:layout_toRightOf="@+id/prix"
+        android:text="€"
         android:textStyle="bold" />
 
 
