@@ -145,27 +145,36 @@ public class Annonce {
     }
 
 
-    public static ArrayList<Annonce> createListeAnnonce(JSONArray ja) throws JSONException {
+    public static ArrayList<Annonce> createListAnnonce(JSONArray ja, Activity a) {
         ArrayList<Annonce> liste = new ArrayList<>();
+        try {
 
-        for (int i = 0; i < ja.length(); i++) {
-            JSONObject jsonPers = ja.getJSONObject(i);
-            String titre = jsonPers.get("titre").toString(),
-            id = jsonPers.get("id").toString(),
-            price = jsonPers.get("prix").toString(),
-            code_p =jsonPers.get("cp").toString(),
-            ville=jsonPers.get("ville").toString(),
-            description=jsonPers.get("description").toString(),
-            datepub=jsonPers.get("date").toString(),
-            mail=jsonPers.get("emailContact").toString(),
-            pseudo=jsonPers.get("pseudo").toString(),
-            tel=jsonPers.get("telContact").toString();
-            JSONArray img =(JSONArray) jsonPers.get("images");
-            ArrayList<String>image=new ArrayList<>();
-            //creation de l'arraylist d'images
-            for(int k=0; k<img.length();k++)
-                image.add(img.get(k).toString());
-            liste.add(new Annonce(id, titre, description,Integer.valueOf(price),pseudo, mail,tel,ville, code_p,image, datepub));
+            for (int i = 0; i < ja.length(); i++) {
+                JSONObject jsonPers = ja.getJSONObject(i);
+                String titre = jsonPers.get("titre").toString(),
+                        id = jsonPers.get("id").toString(),
+                        price = jsonPers.get("prix").toString(),
+                        code_p = jsonPers.get("cp").toString(),
+                        ville = jsonPers.get("ville").toString(),
+                        description = jsonPers.get("description").toString(),
+                        datepub = jsonPers.get("date").toString(),
+                        mail = jsonPers.get("emailContact").toString(),
+                        pseudo = jsonPers.get("pseudo").toString(),
+                        tel = jsonPers.get("telContact").toString();
+                JSONArray img = (JSONArray) jsonPers.get("images");
+                ArrayList<String> image = new ArrayList<>();
+                //creation de l'arraylist d'images
+                for (int k = 0; k < img.length(); k++)
+                    image.add(img.get(k).toString());
+                liste.add(new Annonce(id, titre, description, Integer.valueOf(price), pseudo, mail, tel, ville, code_p, image, datepub));
+
+            }
+            return liste;
+        }
+        catch (Exception e )
+        {
+            Toast.makeText(a,"Dans method annonce"+e.getMessage(), Toast.LENGTH_SHORT).show();
+
         }
         return liste;
     }

@@ -1,5 +1,6 @@
 package com.a21713885.l3.unicaen.android.annonceapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -58,7 +59,6 @@ public class VoirAnnonceActivity extends AppCompatActivity {
                                     Annonce a = new Annonce();
 
                                     JSONObject resp = new JSONObject(jo.get("response").toString());
-                                    
                                     titre.setText(resp.get("titre").toString());
                                     pri.setText(resp.get("prix").toString());
                                     code_p.setText(resp.get("cp").toString());
@@ -82,7 +82,7 @@ public class VoirAnnonceActivity extends AppCompatActivity {
                                                 load(image.get(1).toString()).
                                                 into(iv);
                                     }
-                                }
+                                                                     }
                                 else
                                 {
                                     Toast.makeText(VoirAnnonceActivity.this, "echec de chargement des donnees", Toast.LENGTH_SHORT).show();
@@ -91,7 +91,7 @@ public class VoirAnnonceActivity extends AppCompatActivity {
                             }
                             catch (Exception e)
                             {
-                                Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"EXCEPTION"+e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }, new Response.ErrorListener() {
