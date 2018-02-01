@@ -2,6 +2,8 @@ package com.a21713885.l3.unicaen.android.annonceapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -14,12 +16,23 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class ListeAnnonceActivity extends AppCompatActivity {
+
+    List<Annonce> annonceList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_annonce);
+        // Recuperer la liste des annonces ici
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.liste_annonces);
+        //définition de l'agencement des elements sous forme de liste
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        AnnonceAdapter annonceAdapter = new AnnonceAdapter(annonceList, this);
+        recyclerView.setAdapter(annonceAdapter);
     }
 
 
