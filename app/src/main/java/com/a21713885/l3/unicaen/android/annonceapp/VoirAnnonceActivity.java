@@ -55,7 +55,10 @@ public class VoirAnnonceActivity extends AppCompatActivity {
                                 JSONObject jo = new JSONObject(response);
                                 if (!jo.get("success").toString().equals("null"))
                                 {
+                                    Annonce a = new Annonce();
+
                                     JSONObject resp = new JSONObject(jo.get("response").toString());
+                                    
                                     titre.setText(resp.get("titre").toString());
                                     pri.setText(resp.get("prix").toString());
                                     code_p.setText(resp.get("cp").toString());
