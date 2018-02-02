@@ -12,15 +12,13 @@ import android.widget.TextView;
  */
 
 public class AnnonceViewHolder extends RecyclerView.ViewHolder {
-    private Activity activity;
     private TextView titre;
     private TextView price;
 
-    public AnnonceViewHolder(View itemView, Activity activity) {
+    public AnnonceViewHolder(View itemView) {
         super(itemView);
-        this.activity = activity;
-        this.titre = (TextView) this.activity.findViewById(R.id.Titre);
-        this.price = (TextView) this.activity.findViewById(R.id.prix);
+        this.titre = (TextView) itemView.findViewById(R.id.Titre);
+        this.price = (TextView) itemView.findViewById(R.id.prix);
     }
 
     public void bind(Annonce annonce){

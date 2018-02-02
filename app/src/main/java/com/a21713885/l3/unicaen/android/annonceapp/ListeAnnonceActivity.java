@@ -1,5 +1,6 @@
 package com.a21713885.l3.unicaen.android.annonceapp;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,33 +20,81 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.JarEntry;
 
 public class ListeAnnonceActivity extends AppCompatActivity {
 
-    private  String annonceJsonArray ;
+    private  RecyclerView recyclerView;
     private List<Annonce> annonceList;
-
+    private String url = "https://ensweb.users.info.unicaen.fr/android-api/mock-api/liste.json";
+    private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_annonce);
-        // Recuperer la liste des annonces ici
-        Annonce annonce = new Annonce();
-        annonceList = annonce.createListAnnonce(this);
-        if(annonceList.isEmpty())
-            Toast.makeText(ListeAnnonceActivity.this, "la liste est vide", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(ListeAnnonceActivity.this, "la liste est pas du tout vide"+annonceList.size(), Toast.LENGTH_SHORT).show();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.liste_annonces);
-        //Toast.makeText(ListeAnnonceActivity.this, annonceList.get(0).toString(), Toast.LENGTH_SHORT).show();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AnnonceAdapter annonceAdapter = new AnnonceAdapter(annonceList, this);
-        recyclerView.setAdapter(annonceAdapter);
+        this.recyclerView = (RecyclerView) findViewById(R.id.liste_annonces);
+        this.recyclerView.setHasFixedSize(true);
+        this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        this.annonceList = new ArrayList<>();
 
-
+        chargerListeAnnonces();
     }
 
+    private void chargerListeAnnonces(){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Chargement des données...");
+        progressDialog.show();
+
+        StringRequest sRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("response");
+
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject o = jsonArray.getJSONObject(i);
+
+
+                                //JSONArray img = annonceObject.getJSONArray("images");
+                                ArrayList<String> image = new ArrayList<>();
+                                //creation de l'arraylist d'images
+                                //for (int k = 0; k < img.length(); k++)
+                                // image.add(img.get(k).toString());
+                                //Toast.makeText(null, liste.size(), Toast.LENGTH_SHORT).show();
+                                Annonce annonce = new Annonce(o.get("id").toString(), o.get("titre").toString(), o.get("description").toString(),
+                                        Integer.valueOf(o.get("prix").toString()), o.get("pseudo").toString(), o.get("emailContact").toString(),
+                                        o.get("telContact").toString(), o.get("ville").toString(), o.get("cp").toString(),
+                                        image, o.get("date").toString());
+                                annonceList.add(annonce);
+
+                                Log.d("debug liste get postal",annonceList.get(0).getCodePostal());
+                            }
+                            Log.d("debug liste",annonceList.toString());
+                            adapter = new AnnonceAdapter(annonceList, getApplicationContext());
+                            recyclerView.setAdapter(adapter);
+                        } catch (Exception e) {
+                            Toast.makeText(ListeAnnonceActivity.this, "EXCEPTION", Toast.LENGTH_SHORT).show();
+                            Log.d("Exception de liste","Exception");
+                        }
+
+                    }
+
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                Toast.makeText(ListeAnnonceActivity.this, "ERREUR", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(sRequest);
+    }
 }

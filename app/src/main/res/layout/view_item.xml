@@ -1,29 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/titre"
+        android:id="@+id/titre_item"
         android:text="titre de l'annonce"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginTop="33dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp" />
+        android:layout_marginLeft="15dp" />
 
     <TextView
+        android:id="@+id/pri_item"
         android:text="le prix ..."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="32dp"
-        android:layout_marginEnd="32dp"
-        android:id="@+id/prix"
-        android:layout_alignBaseline="@+id/titre"
-        android:layout_alignBottom="@+id/titre"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-</RelativeLayout>
+        android:layout_marginEnd="32dp"/>
+</LinearLayout>
