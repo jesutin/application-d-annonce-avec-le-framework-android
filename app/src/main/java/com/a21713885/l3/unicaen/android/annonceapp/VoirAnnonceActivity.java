@@ -56,8 +56,6 @@ public class VoirAnnonceActivity extends AppCompatActivity {
                                 JSONObject jo = new JSONObject(response);
                                 if (!jo.get("success").toString().equals("null"))
                                 {
-                                    Annonce a = new Annonce();
-
                                     JSONObject resp = new JSONObject(jo.get("response").toString());
                                     titre.setText(resp.get("titre").toString());
                                     pri.setText(resp.get("prix").toString());
@@ -79,7 +77,7 @@ public class VoirAnnonceActivity extends AppCompatActivity {
                                     else
                                     {
                                         Picasso.with(VoirAnnonceActivity.this).
-                                                load(image.get(1).toString()).
+                                                load(image.get(0).toString()).
                                                 into(iv);
                                     }
                                                                      }

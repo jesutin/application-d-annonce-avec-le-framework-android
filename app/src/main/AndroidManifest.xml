@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".VoirAnnonceActivity" />
-        <activity android:name=".ListeAnnonceActivity"></activity>
+        <activity android:name=".ListeAnnonceActivity" />
+        <activity android:name=".ListeActivity"></activity>
     </application>
 
 </manifest>

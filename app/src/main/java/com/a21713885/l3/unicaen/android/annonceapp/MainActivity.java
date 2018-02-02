@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-private  Button voirAnnonce;
+private  Button voirAnnonce,listeAnnonce;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +23,13 @@ private  Button voirAnnonce;
                 voirAnnonceListner(view);
             }
         });
+        listeAnnonce = (Button)findViewById(R.id.lister_annones);
+        listeAnnonce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listeAnnoncesListner(view);
+            }
+        });
 
 
     }
@@ -31,6 +38,11 @@ private  Button voirAnnonce;
     private void voirAnnonceListner(View view)
     {
         Intent intent = new Intent(this,VoirAnnonceActivity.class);
+        startActivity(intent);
+    }
+    private void listeAnnoncesListner(View view)
+    {
+        Intent intent = new Intent(this,ListeAnnonceActivity.class);
         startActivity(intent);
     }
 }
