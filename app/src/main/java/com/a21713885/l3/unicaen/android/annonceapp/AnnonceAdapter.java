@@ -49,6 +49,7 @@ public class AnnonceAdapter extends RecyclerView.Adapter<AnnonceAdapter.ViewHold
         public TextView titre;
         public TextView price;
 
+        
         public ViewHolder(View itemView) {
             super(itemView);
             this.titre = (TextView) itemView.findViewById(R.id.titre_item);

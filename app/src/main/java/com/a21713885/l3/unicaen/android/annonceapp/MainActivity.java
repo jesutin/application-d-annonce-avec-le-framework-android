@@ -6,12 +6,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 private  Button voirAnnonce,listeAnnonce;
+    private Button posteAnnonce;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +32,24 @@ private  Button voirAnnonce,listeAnnonce;
                 listeAnnoncesListner(view);
             }
         });
+        posteAnnonce = (Button)findViewById(R.id.post);
+        posteAnnonce.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                posteAnnonce(view);
+            }
+        });
 
 
     }
 
+   private  void posteAnnonce (View view)
+   {
+       Intent intent = new Intent(this, PosteAnnonceActivity.class);
+       startActivity(intent);
 
+
+   }
     private void voirAnnonceListner(View view)
     {
         Intent intent = new Intent(this,VoirAnnonceActivity.class);

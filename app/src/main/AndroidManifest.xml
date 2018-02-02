@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".VoirAnnonceActivity" />
         <activity android:name=".ListeAnnonceActivity" />
-        <activity android:name=".ListeActivity"></activity>
+        <activity android:name=".ListeActivity" />
+        <activity android:name=".PosteAnnonceActivity"></activity>
     </application>
 
 </manifest>
