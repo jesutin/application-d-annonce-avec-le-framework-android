@@ -92,6 +92,7 @@ public class AnnonceAdapter extends RecyclerView.Adapter<AnnonceAdapter.ViewHold
         public TextView price;
         public ImageView imageAnnonce;
 
+        
         public ViewHolder(View itemView) {
             super(itemView);
             this.id = (TextView) itemView.findViewById(R.id.id_item);
