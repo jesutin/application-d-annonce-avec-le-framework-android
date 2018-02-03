@@ -38,7 +38,7 @@ private  Button voirAnnonce,listeAnnonce;
     }
     private void listeAnnoncesListner(View view)
     {
-        Intent intent = new Intent(this,Image_SliderActivity.class);
+        Intent intent = new Intent(this,ListeAnnonceActivity.class);
         startActivity(intent);
     }
 }

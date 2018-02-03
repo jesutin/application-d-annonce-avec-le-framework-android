@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Image_SliderActivity extends AppCompatActivity {
+public class ListeAnnonceActivity extends AppCompatActivity {
 
     private  RecyclerView recyclerView;
     private List<Annonce> annonceList;
@@ -73,9 +73,9 @@ public class Image_SliderActivity extends AppCompatActivity {
                             Log.d("debug liste",annonceList.toString());
                             adapter = new AnnonceAdapter(annonceList, getApplicationContext());
                             recyclerView.setAdapter(adapter);
-                            Toast.makeText(Image_SliderActivity.this, recyclerView.getNextFocusDownId(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ListeAnnonceActivity.this, recyclerView.getNextFocusDownId(), Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
-                            Toast.makeText(Image_SliderActivity.this, "EXCEPTION", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ListeAnnonceActivity.this, "EXCEPTION", Toast.LENGTH_SHORT).show();
                             Log.d("Exception de liste","Exception");
                         }
 
@@ -86,7 +86,7 @@ public class Image_SliderActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-                Toast.makeText(Image_SliderActivity.this, "ERREUR", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListeAnnonceActivity.this, "ERREUR", Toast.LENGTH_SHORT).show();
             }
         });
 
