@@ -1,6 +1,9 @@
 package com.a21713885.l3.unicaen.android.annonceapp;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +11,11 @@ import java.util.List;
  * Created by amadou on 19/01/18.
  */
 
-public class Annonce {
+public class Annonce implements Parcelable {
     private String id;
     private String titre;
     private String description;
-    private int price;
+    private String price;
     private String pseudo;
     private String emailContact;
     private String telContact;
@@ -21,7 +24,7 @@ public class Annonce {
     private ArrayList<String> images = new ArrayList<>();
     private String date;
 
-    public Annonce(String id, String titre, String description, int price,
+    public Annonce(String id, String titre, String description, String price,
                    String pseudo, String emailContact, String telContact,
                    String ville, String codePostal, ArrayList<String> images, String date) {
         this.id = id;
@@ -36,6 +39,20 @@ public class Annonce {
         this.images = images;
         this.date = date;
 
+    }
+
+    public Annonce(Parcel parcel){
+        this.id = parcel.readString();
+        this.titre = parcel.readString();
+        this.description = parcel.readString();
+        this.price = parcel.readString();
+        this.pseudo = parcel.readString();
+        this.emailContact = parcel.readString();
+        this.telContact = parcel.readString();
+        this.ville = parcel.readString();
+        this.codePostal = parcel.readString();
+        this.images = parcel.readArrayList(String.class.getClassLoader());
+        this.date = parcel.readString();
     }
 
     public  Annonce(){}
@@ -63,11 +80,11 @@ public class Annonce {
         this.description = description;
     }
 
-    public int getPrice() {
-        return price;
+    public String getPrice() {
+        return this.price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -127,4 +144,34 @@ public class Annonce {
         this.date = date;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(titre);
+        parcel.writeString(description);
+        parcel.writeString(price);
+        parcel.writeString(pseudo);
+        parcel.writeString(emailContact);
+        parcel.writeString(telContact);
+        parcel.writeString(ville);
+        parcel.writeString(codePostal);
+        parcel.writeList(images);
+        parcel.writeString(date);
+    }
+    public static final Parcelable.Creator<Annonce> CREATOR = new Creator<Annonce>() {
+        @Override
+        public Annonce createFromParcel(Parcel parcel) {
+            return new Annonce(parcel);
+        }
+
+        @Override
+        public Annonce[] newArray(int i) {
+            return new Annonce[i];
+        }
+    };
 }

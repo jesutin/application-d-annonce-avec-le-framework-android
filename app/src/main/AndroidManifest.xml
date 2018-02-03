@@ -19,8 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".VoirAnnonceActivity" />
-        <activity android:name=".ListeAnnonceActivity" />
-        <activity android:name=".ListeActivity"></activity>
+        <activity android:name=".Image_SliderActivity" />
+        <activity android:name=".ListeActivity" />
+        <activity android:name=".ImageSliderActivity"></activity>
     </application>
 
 </manifest>

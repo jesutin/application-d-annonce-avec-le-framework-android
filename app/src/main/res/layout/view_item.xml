@@ -1,22 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/titre_item"
-        android:text="titre de l'annonce"
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="33dp"
-        android:layout_marginLeft="15dp" />
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardBackgroundColor="@color/cardview_shadow_end_color">
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/image_annonce_item"
+                android:layout_width="120dp"
+                android:layout_height="90dp"
+                android:padding="4dp" />
 
-    <TextView
-        android:id="@+id/pri_item"
-        android:text="le prix ..."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="32dp"
-        android:layout_marginEnd="32dp"/>
+            <TextView
+                android:id="@+id/titre_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/image_annonce_item"
+                android:layout_marginLeft="5dp"
+                android:text="titre de l'annonce"
+                android:textSize="17dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/pseudo_item"
+                android:layout_below="@id/titre_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/image_annonce_item"
+                android:layout_marginLeft="5dp"
+                android:text="le pseudo ..." />
+
+            <TextView
+                android:id="@+id/email_contact_item"
+                android:layout_below="@id/pseudo_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/image_annonce_item"
+                android:layout_marginLeft="5dp"
+                android:text="contact ..." />
+
+            <TextView
+                android:id="@+id/price_item"
+                android:layout_below="@id/email_contact_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/image_annonce_item"
+                android:layout_marginLeft="5dp"
+                android:text="le prix ..."
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/id_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/image_annonce_item"
+                android:layout_marginLeft="5dp"
+                android:text=""
+                android:visibility="invisible"/>
+
+        </RelativeLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
 </LinearLayout>
