@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -77,11 +78,43 @@ public class VoirAnnonceActivity extends AppCompatActivity {
                 getImageListner(view,annonce);
             }
         });
+        final String numero = tel.getText().toString();
+        tel.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+               getNumeroListener(view,numero);
+            }
+        });
+        final String e_mail =mail.getText().toString(),
+               titre_mail =titre.getText().toString()  ;
+        mail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getMailListener(view,e_mail,titre_mail);
+            }
+        });
     }
     private void getImageListner(View view,Annonce annonce)
     {
         Intent intent = new Intent(this,ImageViewActivity.class);
         intent.putExtra("images", annonce);
+        startActivity(intent);
+    }
+
+    private void getNumeroListener(View view,String numero){
+        Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+numero));
+        startActivity(intent);
+
+
+    }
+
+    private void getMailListener(View view, String mail, String titre){
+       Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setData(Uri.parse("mailto:"));
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_EMAIL, mail);
+        intent.putExtra(Intent.EXTRA_SUBJECT, titre);
         startActivity(intent);
     }
 }
