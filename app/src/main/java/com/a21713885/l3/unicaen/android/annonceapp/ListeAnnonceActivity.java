@@ -61,7 +61,6 @@ public class ListeAnnonceActivity extends AppCompatActivity {
                                 //creation de l'arraylist d'images
                                 for (int k = 0; k < img.length(); k++)
                                  image.add(img.get(k).toString());
-                                //Toast.makeText(null, liste.size(), Toast.LENGTH_SHORT).show();
                                 Annonce annonce = new Annonce(o.get("id").toString(), o.get("titre").toString(), o.get("description").toString(),
                                         o.get("prix").toString(), o.get("pseudo").toString(), o.get("emailContact").toString(),
                                         o.get("telContact").toString(), o.get("ville").toString(), o.get("cp").toString(),
@@ -73,7 +72,6 @@ public class ListeAnnonceActivity extends AppCompatActivity {
                             Log.d("debug liste",annonceList.toString());
                             adapter = new AnnonceAdapter(annonceList, getApplicationContext());
                             recyclerView.setAdapter(adapter);
-                            Toast.makeText(ListeAnnonceActivity.this, recyclerView.getNextFocusDownId(), Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             Toast.makeText(ListeAnnonceActivity.this, "EXCEPTION", Toast.LENGTH_SHORT).show();
                             Log.d("Exception de liste","Exception");

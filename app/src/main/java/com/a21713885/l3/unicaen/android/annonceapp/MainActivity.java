@@ -28,7 +28,7 @@ private  Button voirAnnonce,listeAnnonce;
                 listeAnnoncesListner(view);
             }
         });
-        posteAnnonce = (Button)findViewById(R.id.post);
+        posteAnnonce = (Button)findViewById(R.id.deposer_annonce);
         posteAnnonce.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
