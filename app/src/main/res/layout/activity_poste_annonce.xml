@@ -8,91 +8,60 @@
     tools:context="com.a21713885.l3.unicaen.android.annonceapp.PosteAnnonceActivity">
 
 
-
     <EditText
+        android:id="@+id/titre_an"
         android:textSize="20sp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
         android:hint="Titre"
         android:ems="10"
-        android:id="@+id/editText"
         android:layout_marginTop="2dp"
         android:layout_marginLeft="13dp"
         />
 
 
     <EditText
-        android:layout_width="wrap_content"
+        android:id="@+id/desc_an"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:hint="Description"
         android:ems="10"
-        android:id="@+id/editText2"
         android:textSize="20sp"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="13dp"
          />
 
-
-    <TextView
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType=""
-        android:text="Image"
-        android:hint="image"
-        android:ems="10"
-        android:id="@+id/editText3"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="13dp"
-        />
     <EditText
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
+        android:id="@+id/prix_an"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-
-        android:hint="E-mail"
+        android:inputType="number"
+        android:hint="Prix"
         android:ems="10"
-        android:id="@+id/editText5"
+        android:textSize="20sp"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="13dp"
         />
 
-
-
-    <EditText
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-
-        android:hint="Phone"
-        android:ems="10"
-        android:id="@+id/editText6"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="13dp"
-        />
-    <EditText
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-
-        android:hint="Nom"
-        android:ems="10"
-        android:id="@+id/editText7"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="13dp"
-        />
     <Button
-        android:text="POSTER"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/post"
+        android:text="VALIDER"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
+        android:layout_marginTop="50dp"
+        />
+
+    <EditText
+        android:id="@+id/test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:textSize="20sp"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="130dp"
+        android:layout_marginLeft="13dp"
+        android:visibility="invisible"
         />
 </LinearLayout>

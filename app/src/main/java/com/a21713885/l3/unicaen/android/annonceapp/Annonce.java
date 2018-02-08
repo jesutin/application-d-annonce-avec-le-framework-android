@@ -4,6 +4,8 @@ package com.a21713885.l3.unicaen.android.annonceapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +15,34 @@ import java.util.List;
 
 public class Annonce implements Parcelable {
     private String id;
+    @SerializedName("titre")
     private String titre;
+
+    @SerializedName("description")
     private String description;
+
+    @SerializedName("prix")
     private String price;
+
+    @SerializedName("pseudo")
     private String pseudo;
+
+    @SerializedName("emailContact")
     private String emailContact;
+
+    @SerializedName("telContact")
     private String telContact;
+
+    @SerializedName("ville")
     private String ville;
+
+    @SerializedName("cp")
     private String codePostal;
+
+    @SerializedName("images")
     private ArrayList<String> images = new ArrayList<>();
+
+    //@SerializedName("date")
     private String date;
 
     public Annonce(String id, String titre, String description, String price,
@@ -38,6 +59,21 @@ public class Annonce implements Parcelable {
         this.codePostal = codePostal;
         this.images = images;
         this.date = date;
+
+    }
+
+    public Annonce(String titre, String description, String price,
+                   String pseudo, String emailContact, String telContact,
+                   String ville, String codePostal, ArrayList<String> images) {
+        this.titre = titre;
+        this.description = description;
+        this.price = price;
+        this.pseudo = pseudo;
+        this.emailContact = emailContact;
+        this.telContact = telContact;
+        this.ville = ville;
+        this.codePostal = codePostal;
+        this.images = images;
 
     }
 
