@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -17,12 +16,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.JarEntry;
 
 public class ListeAnnonceActivity extends AppCompatActivity {
 
@@ -59,16 +56,13 @@ public class ListeAnnonceActivity extends AppCompatActivity {
 
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject o = jsonArray.getJSONObject(i);
-
-
-                                //JSONArray img = annonceObject.getJSONArray("images");
+                                JSONArray img = o.getJSONArray("images");
                                 ArrayList<String> image = new ArrayList<>();
                                 //creation de l'arraylist d'images
-                                //for (int k = 0; k < img.length(); k++)
-                                // image.add(img.get(k).toString());
-                                //Toast.makeText(null, liste.size(), Toast.LENGTH_SHORT).show();
+                                for (int k = 0; k < img.length(); k++)
+                                 image.add(img.get(k).toString());
                                 Annonce annonce = new Annonce(o.get("id").toString(), o.get("titre").toString(), o.get("description").toString(),
-                                        Integer.valueOf(o.get("prix").toString()), o.get("pseudo").toString(), o.get("emailContact").toString(),
+                                        o.get("prix").toString(), o.get("pseudo").toString(), o.get("emailContact").toString(),
                                         o.get("telContact").toString(), o.get("ville").toString(), o.get("cp").toString(),
                                         image, o.get("date").toString());
                                 annonceList.add(annonce);
@@ -97,4 +91,6 @@ public class ListeAnnonceActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(sRequest);
     }
+
+
 }
