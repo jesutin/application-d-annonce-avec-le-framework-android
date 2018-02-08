@@ -25,7 +25,7 @@ public class ListeAnnonceActivity extends AppCompatActivity {
 
     private  RecyclerView recyclerView;
     private List<Annonce> annonceList;
-    private String url = "https://ensweb.users.info.unicaen.fr/android-api/mock-api/liste.json";
+    private String url = "https://ensweb.users.info.unicaen.fr/android-api/?apikey=21713885&method=listAll";
     private RecyclerView.Adapter adapter;
 
     @Override

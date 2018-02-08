@@ -12,7 +12,7 @@ import retrofit2.http.POST;
 
 public interface ApiInterface {
     @FormUrlEncoded
-    @POST("android-api")
+    @POST("android-api/index.php")
     Call<Annonce> createAnnonce(@Field("apikey") String apikey, @Field("method") String method,
                                 @Field("titre") String titre, @Field("description") String desc,
                                 @Field("prix") String prix, @Field("pseudo") String pseudo,

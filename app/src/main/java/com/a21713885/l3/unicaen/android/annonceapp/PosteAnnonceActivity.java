@@ -55,7 +55,7 @@ public class PosteAnnonceActivity extends AppCompatActivity {
         apiInterface.createAnnonce(apikey, method, titre, desc, prix, pseudo, emailContact,telContact,ville,cp).enqueue(new Callback<Annonce>() {
             @Override
             public void onResponse(Call<Annonce> call, Response<Annonce> response) {
-                showResponse(response.body().toString());
+                showResponse(response.toString());
                 System.out.println("annonce sauvegardée avec succès"+response.body().toString());
             }
 
@@ -68,9 +68,7 @@ public class PosteAnnonceActivity extends AppCompatActivity {
     }
 
     public void showResponse(String response){
-        if (test.getVisibility() == View.GONE){
-            test.setVisibility(View.VISIBLE);
-        }
+
         test.setText(response);
     }
 }
