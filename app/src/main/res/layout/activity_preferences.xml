@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.a21713885.l3.unicaen.android.annonceapp.PreferencesActivity">
+
+    <TextView
+        android:id="@+id/preferences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Preferences"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/tel_pref"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ville_pref3"
+        android:layout_alignStart="@+id/ville_pref3"
+        android:layout_below="@+id/ville_pref3"
+        android:ems="10"
+        android:hint="Telephone"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/ville_pref3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ville_pref2"
+        android:layout_alignStart="@+id/ville_pref2"
+        android:layout_below="@+id/ville_pref2"
+        android:ems="10"
+        android:hint="Code postal"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/ville_pref2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/adresse_pref2"
+        android:layout_alignStart="@+id/adresse_pref2"
+        android:layout_below="@+id/adresse_pref2"
+        android:ems="10"
+        android:hint="ville"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/adresse_pref2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/mail_pref2"
+        android:layout_alignStart="@+id/mail_pref2"
+        android:layout_below="@+id/mail_pref2"
+        android:ems="10"
+        android:hint="adresse"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/mail_pref2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/pseudo_pref2"
+        android:layout_alignStart="@+id/pseudo_pref2"
+        android:layout_below="@+id/pseudo_pref2"
+        android:ems="10"
+        android:hint="mail"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/pseudo_pref2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/preferences"
+        android:layout_marginTop="17dp"
+        android:ems="10"
+        android:hint="pseudo"
+        android:inputType="textPersonName" />
+
+</RelativeLayout>

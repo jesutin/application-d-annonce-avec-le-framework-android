@@ -105,10 +105,7 @@ public class VoirAnnonceActivity extends AppCompatActivity {
     private void getNumeroListener(View view,String numero){
         Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+numero));
         startActivity(intent);
-
-
     }
-
     private void getMailListener(View view, String mail, String titre){
        Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setData(Uri.parse("mailto:"));

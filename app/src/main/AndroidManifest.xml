@@ -22,7 +22,8 @@
         <activity android:name=".VoirAnnonceActivity" />
         <activity android:name=".ListeAnnonceActivity" />
         <activity android:name=".PosteAnnonceActivity" />
-        <activity android:name=".ImageViewActivity"></activity>
+        <activity android:name=".ImageViewActivity" />
+        <activity android:name=".PreferencesActivity"></activity>
     </application>
 
 </manifest>
