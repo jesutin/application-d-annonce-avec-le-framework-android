@@ -18,10 +18,13 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
-public class ListeAnnonceActivity extends AppCompatActivity {
+public class ListeAnnonceActivity extends AppCompatActivity{
 
     private  RecyclerView recyclerView;
     private List<Annonce> annonceList;
@@ -61,10 +64,11 @@ public class ListeAnnonceActivity extends AppCompatActivity {
                                 //creation de l'arraylist d'images
                                 for (int k = 0; k < img.length(); k++)
                                  image.add(img.get(k).toString());
+                                String date = getDate(o.get("date").toString());
                                 Annonce annonce = new Annonce(o.get("id").toString(), o.get("titre").toString(), o.get("description").toString(),
                                         o.get("prix").toString(), o.get("pseudo").toString(), o.get("emailContact").toString(),
                                         o.get("telContact").toString(), o.get("ville").toString(), o.get("cp").toString(),
-                                        image, o.get("date").toString());
+                                        image, date);
                                 annonceList.add(annonce);
 
                                 Log.d("debug liste get postal",annonceList.get(0).getCodePostal());
@@ -90,6 +94,14 @@ public class ListeAnnonceActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(sRequest);
+    }
+
+    public static String getDate(String time_stamp){
+
+        Calendar cal = Calendar.getInstance(Locale.FRANCE);
+        cal.setTimeInMillis(Long.parseLong(time_stamp));
+        String date = android.text.format.DateFormat.format("dd-MM-yyyy",cal).toString();
+        return date;
     }
 
 
