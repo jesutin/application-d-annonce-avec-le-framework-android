@@ -1,6 +1,7 @@
 package com.a21713885.l3.unicaen.android.annonceapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -52,6 +53,7 @@ public class ListeAnnonceActivity extends AppCompatActivity{
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
                         progressDialog.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -76,6 +78,11 @@ public class ListeAnnonceActivity extends AppCompatActivity{
                             Log.d("debug liste",annonceList.toString());
                             adapter = new AnnonceAdapter(annonceList, getApplicationContext());
                             recyclerView.setAdapter(adapter);
+                            Intent it = new Intent(getApplicationContext(),VoirAnnonceAdapter.class);
+                            Annonce[] annonces = new Annonce[annonceList.size()];
+                            for (int i = 0;i<annonceList.size();i++)
+                                annonces[i]=annonceList.get(i);
+                            it.putExtra("listeAnnonces",annonces);
                         } catch (Exception e) {
                             Toast.makeText(ListeAnnonceActivity.this, "EXCEPTION", Toast.LENGTH_SHORT).show();
                             Log.d("Exception de liste","Exception");

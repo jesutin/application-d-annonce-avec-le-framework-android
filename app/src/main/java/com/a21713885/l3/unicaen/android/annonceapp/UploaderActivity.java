@@ -15,6 +15,8 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -25,7 +27,7 @@ import okhttp3.Response;
 public class UploaderActivity extends AppCompatActivity {
     private  static final  int RESULT_LOAD_IMG=1;
     private Button camera, gallery, ajouter;
-    private  static final MediaType MEDIA_TYPE_IMG = MediaType.parse("image/*");
+    private  static final MediaType MEDIA_TYPE_IMG = MediaType.parse("image/jpg");
     private  File fichier;
     private Annonce annonce;
     @Override
@@ -45,7 +47,8 @@ public class UploaderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 try {
-                    Toast.makeText(UploaderActivity.this,"dans le try",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploaderActivity.this,"dans le try "+annonce.getId(),Toast.LENGTH_SHORT).show();
+
                     uploaderImage(fichier,"image.jpg", annonce.getId());
 
                 }catch (Exception e){
@@ -101,21 +104,35 @@ public class UploaderActivity extends AppCompatActivity {
     public void uploaderImage(File image, String name, String id) throws IOException{
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("apikey","21713885")
+                .addFormDataPart("method","addImage")
                 .addFormDataPart("id",id)
                 .addFormDataPart("file",name,RequestBody.create(MEDIA_TYPE_IMG,image))
                 .build();
+        Toast.makeText(UploaderActivity.this, id, Toast.LENGTH_SHORT).show();
         Request  request = new Request.Builder()
-                .url("https://ensweb.users.info.unicaen.fr/android-api/?apikey=21713885&method=addImage")
+                .url("https://ensweb.users.info.unicaen.fr/android-api/")
                 .post(requestBody).build();
-        Response response = client.newCall(request).execute();
-        if(!response.isSuccessful()){
+         client.newCall(request).enqueue(new Callback() {
+             @Override
+             public void onFailure(Call call, IOException e) {
+                 e.printStackTrace();
+             }
+
+             @Override
+             public void onResponse(Call call, Response response){
+                //Toast.makeText(UploaderActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+             System.out.println(response.body().toString());
+             }
+         });
+        /*if(!response.isSuccessful()){
             System.out.println( "Erreur ajout imag");
             Toast.makeText(this,"Erreur ajout image",Toast.LENGTH_SHORT).show();
         }
         else
         {
             System.out.println( "valeur de response" +response.toString());
-        }
+        }*/
 
     }
 }
