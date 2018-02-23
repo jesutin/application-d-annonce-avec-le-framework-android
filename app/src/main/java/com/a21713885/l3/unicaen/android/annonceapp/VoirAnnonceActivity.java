@@ -47,9 +47,25 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voir_annonce);
         //ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+       TextView titre = (TextView) findViewById(R.id.Titre),
+                 mail = (TextView) findViewById(R.id.mail),
+                tel = (TextView) findViewById(R.id.telephone);
         annonce = getIntent().getExtras().getParcelable("Annonce");
+        //listeAnnonces=getIntent().getParcelableArrayListExtra("ListeAnnonces");
+        listeAnnonces.add(annonce);
+        listeAnnonces.add(annonce);
+        listeAnnonces.add(annonce);
+        listeAnnonces.add(annonce);
+        listeAnnonces.add(annonce);
 
-        TextView desc = (TextView) findViewById(R.id.description),
+
+
+        ViewPager viewPager = (ViewPager)findViewById(R.id.annonceSlider);
+
+       VoirAnnonceAdapter voirAnnonceAdapter = new VoirAnnonceAdapter(listeAnnonces,this,annonce);
+        viewPager.setAdapter(voirAnnonceAdapter);
+
+        /*TextView desc = (TextView) findViewById(R.id.description),
                 titre = (TextView) findViewById(R.id.Titre),
                 pri = (TextView) findViewById(R.id.prix),
                 code_p = (TextView) findViewById(R.id.codePostal),
@@ -84,10 +100,10 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
                 .setScaleType(BaseSliderView.ScaleType.Fit)
                 .setOnSliderClickListener(this);
 
-        textSliderView.bundle(new Bundle());
+        textSliderView.bundle(new Bundle());*/
         //Toast.makeText(VoirAnnonceActivity.this, image.get(0).toString(), Toast.LENGTH_SHORT).show();
 
-            textSliderView.getBundle()
+           /* textSliderView.getBundle()
                 .putString("extra",name2);
 
         sliderLayout.addSlider(textSliderView);
@@ -102,7 +118,7 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
 
         sliderLayout.setDuration(5000);
 
-        sliderLayout.addOnPageChangeListener(this);
+        sliderLayout.addOnPageChangeListener(this);*/
 
         //Toast.makeText(VoirAnnonceActivity.this, image.get(0).toString(), Toast.LENGTH_SHORT).show();
         /*if (image.size() == 0) {

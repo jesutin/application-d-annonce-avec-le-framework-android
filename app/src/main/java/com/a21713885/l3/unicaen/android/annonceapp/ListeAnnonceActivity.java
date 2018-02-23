@@ -72,17 +72,19 @@ public class ListeAnnonceActivity extends AppCompatActivity{
                                         o.get("telContact").toString(), o.get("ville").toString(), o.get("cp").toString(),
                                         image, date);
                                 annonceList.add(annonce);
-
+                                Intent it = new Intent(getApplicationContext(),VoirAnnonceActivity.class);
+                                it.putExtra("Annonce",annonce);
                                 Log.d("debug liste get postal",annonceList.get(0).getCodePostal());
                             }
                             Log.d("debug liste",annonceList.toString());
                             adapter = new AnnonceAdapter(annonceList, getApplicationContext());
                             recyclerView.setAdapter(adapter);
-                            Intent it = new Intent(getApplicationContext(),VoirAnnonceAdapter.class);
-                            Annonce[] annonces = new Annonce[annonceList.size()];
-                            for (int i = 0;i<annonceList.size();i++)
-                                annonces[i]=annonceList.get(i);
-                            it.putExtra("listeAnnonces",annonces);
+                            ArrayList<Annonce> listeAnnonces = new ArrayList<>();
+                            for(int i = 0 ; i<annonceList.size();i++)
+                                listeAnnonces.add(annonceList.get(i));
+                            Intent it = new Intent(getApplicationContext(),VoirAnnonceActivity.class);
+
+                            it.putParcelableArrayListExtra("ListeAnnonces",listeAnnonces);
                         } catch (Exception e) {
                             Toast.makeText(ListeAnnonceActivity.this, "EXCEPTION", Toast.LENGTH_SHORT).show();
                             Log.d("Exception de liste","Exception");
