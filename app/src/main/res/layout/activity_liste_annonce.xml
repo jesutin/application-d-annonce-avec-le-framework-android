@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.a21713885.l3.unicaen.android.annonceapp.ListeAnnonceActivity">
-
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar_liste"
+        />
+<LinearLayout
+    android:layout_below="@+id/toolbar_liste"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/liste_annonces"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-
 </LinearLayout>
+</RelativeLayout>
 

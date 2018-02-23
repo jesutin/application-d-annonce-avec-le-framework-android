@@ -9,6 +9,9 @@ import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -46,6 +49,7 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voir_annonce);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarVA));
         //ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         annonce = getIntent().getExtras().getParcelable("Annonce");
 
@@ -218,6 +222,19 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuListner menuListner = new MenuListner(item);
+        menuListner.action(new View(VoirAnnonceActivity.this));
+        return super.onOptionsItemSelected(item);
     }
 }
 

@@ -13,7 +13,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -51,6 +54,7 @@ public class UploaderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uploader);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarU));
         image = (ImageView)findViewById(R.id.uploaded_img);
         gallery=(Button)findViewById(R.id.upload_gal);
         gallery.setOnClickListener(new View.OnClickListener() {
@@ -165,7 +169,8 @@ public class UploaderActivity extends AppCompatActivity {
                 fichier = new File(imgDecodableString);
                 cursor.close();
                 Log.d("------Image--------", "Chemin fichier"+fichier.getPath());
-                image.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
+                    image.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
+
             }
             catch (Exception e)
             {
@@ -181,7 +186,7 @@ public class UploaderActivity extends AppCompatActivity {
         }
         else {
             System.out.println("aucune image choisie");
-            Log.d("------Image--------", "Erreur de chargement de fichier"+fichier.getPath());
+            //Log.d("------Image--------", "Erreur de chargement de fichier"+fichier.getPath());
             Toast.makeText(this,"aucune image choisie",Toast.LENGTH_SHORT).show();
         }
 
@@ -215,5 +220,18 @@ public class UploaderActivity extends AppCompatActivity {
                 }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuListner menuListner = new MenuListner(item);
+        menuListner.action(new View(UploaderActivity.this));
+        return super.onOptionsItemSelected(item);
     }
 }

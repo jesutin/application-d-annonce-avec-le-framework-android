@@ -6,7 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -26,7 +30,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class ListeAnnonceActivity extends AppCompatActivity{
-
     private  RecyclerView recyclerView;
     private List<Annonce> annonceList;
     private String url = "https://ensweb.users.info.unicaen.fr/android-api/?apikey=21713885&method=listAll";
@@ -36,6 +39,7 @@ public class ListeAnnonceActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_annonce);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar_liste));
         this.recyclerView = (RecyclerView) findViewById(R.id.liste_annonces);
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -111,6 +115,19 @@ public class ListeAnnonceActivity extends AppCompatActivity{
         cal.setTimeInMillis(Long.parseLong(time_stamp));
         String date = android.text.format.DateFormat.format("dd-MM-yyyy",cal).toString();
         return date;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuListner menuListner = new MenuListner(item);
+        menuListner.action(new View(ListeAnnonceActivity.this));
+        return super.onOptionsItemSelected(item);
     }
 
 

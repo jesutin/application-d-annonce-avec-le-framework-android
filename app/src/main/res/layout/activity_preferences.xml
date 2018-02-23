@@ -5,20 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.a21713885.l3.unicaen.android.annonceapp.PreferencesActivity">
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar_pref"/>
 
     <TextView
+
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="28dp"
-        android:textStyle="bold"
-        android:textSize="30dp"
+        android:layout_below="@+id/toolbar_pref"
         android:text="Mes Preferences"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/pref_ville"
@@ -73,7 +73,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="PSEUDO" />
@@ -85,9 +85,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/pref_ville"
-        android:layout_marginLeft="62dp"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginLeft="63dp"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="43dp"
         android:text="Valider" />
 
     <Button

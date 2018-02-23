@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +39,6 @@ public class PosteAnnonceActivity extends AppCompatActivity {
     private EditText titre;
     private EditText desc;
     private EditText prix;
-    private EditText test;
     private ApiInterface apiInterface;
     public static  final String MY_PREF_NAME = "preferences";
 
@@ -44,11 +46,11 @@ public class PosteAnnonceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poste_annonce);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar_activity));
         //myPreferences();
         this.titre = (EditText) findViewById(R.id.titre_an);
         this.desc = (EditText) findViewById(R.id.desc_an);
         this.prix = (EditText) findViewById(R.id.prix_an);
-        this.test = (EditText) findViewById(R.id.test);
 
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
@@ -155,6 +157,19 @@ public class PosteAnnonceActivity extends AppCompatActivity {
 
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuListner menuListner = new MenuListner(item);
+        menuListner.action(new View(PosteAnnonceActivity.this));
+        return super.onOptionsItemSelected(item);
     }
 
 /*public void getUploader(View view){

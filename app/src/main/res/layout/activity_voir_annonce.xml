@@ -4,8 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ImageViewActivity" >
-
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbarVA"/>
     <ScrollView
+        android:layout_below="@+id/toolbarVA"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
