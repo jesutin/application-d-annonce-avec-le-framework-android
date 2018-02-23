@@ -47,25 +47,9 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voir_annonce);
         //ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-       TextView titre = (TextView) findViewById(R.id.Titre),
-                 mail = (TextView) findViewById(R.id.mail),
-                tel = (TextView) findViewById(R.id.telephone);
         annonce = getIntent().getExtras().getParcelable("Annonce");
-        //listeAnnonces=getIntent().getParcelableArrayListExtra("ListeAnnonces");
-        listeAnnonces.add(annonce);
-        listeAnnonces.add(annonce);
-        listeAnnonces.add(annonce);
-        listeAnnonces.add(annonce);
-        listeAnnonces.add(annonce);
 
-
-
-        ViewPager viewPager = (ViewPager)findViewById(R.id.annonceSlider);
-
-       VoirAnnonceAdapter voirAnnonceAdapter = new VoirAnnonceAdapter(listeAnnonces,this,annonce);
-        viewPager.setAdapter(voirAnnonceAdapter);
-
-        /*TextView desc = (TextView) findViewById(R.id.description),
+        TextView desc = (TextView) findViewById(R.id.description),
                 titre = (TextView) findViewById(R.id.Titre),
                 pri = (TextView) findViewById(R.id.prix),
                 code_p = (TextView) findViewById(R.id.codePostal),
@@ -92,21 +76,21 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
         }
         for(String name2 : HashMapForURL.keySet()){
 
-        TextSliderView textSliderView = new TextSliderView(this);
+            TextSliderView textSliderView = new TextSliderView(this);
 
-        textSliderView
-                .description(name2)
-                .image(HashMapForURL.get(name2))
-                .setScaleType(BaseSliderView.ScaleType.Fit)
-                .setOnSliderClickListener(this);
+            textSliderView
+                    .description(name2)
+                    .image(HashMapForURL.get(name2))
+                    .setScaleType(BaseSliderView.ScaleType.Fit)
+                    .setOnSliderClickListener(this);
 
-        textSliderView.bundle(new Bundle());*/
-        //Toast.makeText(VoirAnnonceActivity.this, image.get(0).toString(), Toast.LENGTH_SHORT).show();
+            textSliderView.bundle(new Bundle());
+            //Toast.makeText(VoirAnnonceActivity.this, image.get(0).toString(), Toast.LENGTH_SHORT).show();
 
-           /* textSliderView.getBundle()
-                .putString("extra",name2);
+            textSliderView.getBundle()
+                    .putString("extra",name2);
 
-        sliderLayout.addSlider(textSliderView);
+            sliderLayout.addSlider(textSliderView);
         }
 
 
@@ -118,7 +102,7 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
 
         sliderLayout.setDuration(5000);
 
-        sliderLayout.addOnPageChangeListener(this);*/
+        sliderLayout.addOnPageChangeListener(this);
 
         //Toast.makeText(VoirAnnonceActivity.this, image.get(0).toString(), Toast.LENGTH_SHORT).show();
         /*if (image.size() == 0) {
@@ -143,11 +127,11 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
 
             @Override
             public void onClick(View view) {
-               getNumeroListener(view,numero);
+                getNumeroListener(view,numero);
             }
         });
         final String e_mail =mail.getText().toString(),
-               titre_mail =titre.getText().toString()  ;
+                titre_mail =titre.getText().toString()  ;
         mail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,7 +151,7 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
         startActivity(intent);
     }
     private void getMailListener(View view, String mail, String titre){
-       Intent intent = new Intent(Intent.ACTION_SEND);
+        Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setData(Uri.parse("mailto:"));
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_EMAIL, mail);

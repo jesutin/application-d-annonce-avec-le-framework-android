@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -28,12 +29,13 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 private  Button voirAnnonce,listeAnnonce;
-    private Button posteAnnonce;
+    private Button posteAnnonce, monProfil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         voirAnnonce=(Button)findViewById(R.id.voir_annonce);
+
         voirAnnonce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)  {
@@ -55,6 +57,14 @@ private  Button voirAnnonce,listeAnnonce;
             }
         });
 
+        monProfil=(Button) findViewById(R.id.profile);
+        monProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,PreferencesActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

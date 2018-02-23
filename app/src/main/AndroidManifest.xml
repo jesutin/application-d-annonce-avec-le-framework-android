@@ -26,7 +26,8 @@
         <activity android:name=".ListeAnnonceActivity" />
         <activity android:name=".PosteAnnonceActivity" />
         <activity android:name=".ImageViewActivity" />
-        <activity android:name=".UploaderActivity"></activity>
+        <activity android:name=".UploaderActivity" />
+        <activity android:name=".PreferencesActivity"></activity>
     </application>
 
 </manifest>

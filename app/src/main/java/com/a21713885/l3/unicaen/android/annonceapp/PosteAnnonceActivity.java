@@ -44,7 +44,7 @@ public class PosteAnnonceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poste_annonce);
-        myPreferences();
+        //myPreferences();
         this.titre = (EditText) findViewById(R.id.titre_an);
         this.desc = (EditText) findViewById(R.id.desc_an);
         this.prix = (EditText) findViewById(R.id.prix_an);
@@ -161,7 +161,7 @@ public class PosteAnnonceActivity extends AppCompatActivity {
     Intent intent = new Intent(this,UploaderActivity.class);
     startActivity(intent);
 }*/
-protected  void myPreferences(){
+/*protected  void myPreferences(){
     SharedPreferences.Editor editor = getSharedPreferences(MY_PREF_NAME,MODE_PRIVATE).edit();
     editor.putString("pseudo","alpha");
     editor.putString("emailContact","alpha@gmail.com");
@@ -169,6 +169,6 @@ protected  void myPreferences(){
     editor.putString("ville","Caen");
     editor.putString("cp","14200");
     editor.apply();
-}
+}*/
 
 }
