@@ -40,12 +40,8 @@ import static android.R.string.ok;
 public class UploaderActivity extends AppCompatActivity {
     private  static final  int RESULT_LOAD_IMG=1;
     private Button camera, gallery, ajouter;
-<<<<<<< HEAD
-    private  static final MediaType MEDIA_TYPE_IMG = MediaType.parse("image/jpg");
-=======
     private ImageView image;
     private  static final MediaType MEDIA_TYPE_IMG = MediaType.parse("image/jpeg");
->>>>>>> fce280b9f2f000ce7ffb6d9cec0869f6bc1946e0
     private  File fichier;
     private Annonce annonce;
     private Bitmap mImageBitmap;
@@ -69,11 +65,7 @@ public class UploaderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 try {
-<<<<<<< HEAD
-                    Toast.makeText(UploaderActivity.this,"dans le try "+annonce.getId(),Toast.LENGTH_SHORT).show();
 
-                    uploaderImage(fichier,"image.jpg", annonce.getId());
-=======
                     Toast.makeText(UploaderActivity.this,"dans le try",Toast.LENGTH_SHORT).show();
                     Toast.makeText(UploaderActivity.this,"fichier "+ fichier.getPath(),Toast.LENGTH_SHORT).show();
                     if(fichier != null)
@@ -82,7 +74,6 @@ public class UploaderActivity extends AppCompatActivity {
                         fichier = new File(fichierUri.getPath());
                         uploaderImage(fichier,"image.jpg", annonce.getId());
                     }
->>>>>>> fce280b9f2f000ce7ffb6d9cec0869f6bc1946e0
 
                 }catch (Exception e){
                     System.out.println("------------- ");e.printStackTrace();
@@ -207,46 +198,22 @@ public class UploaderActivity extends AppCompatActivity {
         Toast.makeText(UploaderActivity.this, id, Toast.LENGTH_SHORT).show();
         Request  request = new Request.Builder()
                 .url("https://ensweb.users.info.unicaen.fr/android-api/")
-<<<<<<< HEAD
-                .post(requestBody).build();
-         client.newCall(request).enqueue(new Callback() {
-             @Override
-             public void onFailure(Call call, IOException e) {
-                 e.printStackTrace();
-             }
+            .post(requestBody)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    System.out.println( "Erreur ajout imag"+e.getMessage());
+                    e.printStackTrace();
 
-             @Override
-             public void onResponse(Call call, Response response){
-                //Toast.makeText(UploaderActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-             System.out.println(response.body().toString());
-             }
-         });
-        /*if(!response.isSuccessful()){
-            System.out.println( "Erreur ajout imag");
-            Toast.makeText(this,"Erreur ajout image",Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            System.out.println( "valeur de response" +response.toString());
-        }*/
-=======
-                .post(requestBody)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                System.out.println( "Erreur ajout imag"+e.getMessage());
-                e.printStackTrace();
+                }
 
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                System.out.println( "valeur de response " +response.body().string());
-                //test.setText(response.toString());
-            }
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    System.out.println( "valeur de response " +response.body().string());
+                    //test.setText(response.toString());
+                }
         });
->>>>>>> fce280b9f2f000ce7ffb6d9cec0869f6bc1946e0
 
     }
 }
