@@ -13,7 +13,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,7 +43,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static android.R.string.ok;
 
 public class UploaderActivity extends AppCompatActivity {
     private  static final  int RESULT_LOAD_IMG=1;
@@ -49,13 +51,12 @@ public class UploaderActivity extends AppCompatActivity {
     private  static final MediaType MEDIA_TYPE_IMG = MediaType.parse("image/jpeg");
     private  File fichier;
     private Annonce annonce;
-    private Bitmap mImageBitmap;
-    private String mCurrentPhotoPath;
     private Uri fichierUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uploader);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarU));
         image = (ImageView)findViewById(R.id.uploaded_img);
         gallery=(Button)findViewById(R.id.upload_gal);
         terminer = (Button) findViewById(R.id.finish_upload);
@@ -71,6 +72,7 @@ public class UploaderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 try {
+
                     Toast.makeText(UploaderActivity.this,"dans le try",Toast.LENGTH_SHORT).show();
                     Toast.makeText(UploaderActivity.this,"fichier "+ fichier.getPath(),Toast.LENGTH_SHORT).show();
                     if(fichier != null)
@@ -181,7 +183,8 @@ public class UploaderActivity extends AppCompatActivity {
                 fichier = new File(imgDecodableString);
                 cursor.close();
                 Log.d("------Image--------", "Chemin fichier"+fichier.getPath());
-                image.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
+                    image.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
+
             }
             catch (Exception e)
             {
@@ -197,7 +200,7 @@ public class UploaderActivity extends AppCompatActivity {
         }
         else {
             System.out.println("aucune image choisie");
-            Log.d("------Image--------", "Erreur de chargement de fichier"+fichier.getPath());
+            //Log.d("------Image--------", "Erreur de chargement de fichier"+fichier.getPath());
             Toast.makeText(this,"aucune image choisie",Toast.LENGTH_SHORT).show();
         }
 
@@ -210,7 +213,7 @@ public class UploaderActivity extends AppCompatActivity {
                 .addFormDataPart("method","addImage")
                 .addFormDataPart("id",id)
                 .addFormDataPart("photo",name,RequestBody.create(MEDIA_TYPE_IMG,image))
-                .build();  //
+                .build();
         Request  request = new Request.Builder()
                 .url("https://ensweb.users.info.unicaen.fr/android-api/")
                 .post(requestBody)
@@ -222,7 +225,6 @@ public class UploaderActivity extends AppCompatActivity {
                 e.printStackTrace();
 
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 //System.out.println( "valeur de response " +response.body().string());
@@ -253,5 +255,18 @@ public class UploaderActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuListner menuListner = new MenuListner(item);
+        menuListner.action(new View(UploaderActivity.this));
+        return super.onOptionsItemSelected(item);
     }
 }

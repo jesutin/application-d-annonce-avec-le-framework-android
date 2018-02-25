@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/voir_annonce_menu" android:title="Voir Annonce"/>
+    <item android:id="@+id/post_annonce_menu" android:title="Poster une annonce"/>
+    <item android:id="@+id/liste_annonces_menu" android:title="Liste annonces"/>
+    <item android:id="@+id/pref_menu" android:title="Profil"/>
+    <item android:id="@+id/quitter_menu" android:title="Quitter"/>
+</menu>

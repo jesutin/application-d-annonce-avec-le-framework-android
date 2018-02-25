@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +39,6 @@ public class PosteAnnonceActivity extends AppCompatActivity {
     private EditText titre;
     private EditText desc;
     private EditText prix;
-    private EditText test;
     private ApiInterface apiInterface;
     public static  final String MY_PREF_NAME = "preferences";
 
@@ -44,11 +46,10 @@ public class PosteAnnonceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poste_annonce);
-        myPreferences();
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar_activity));
         this.titre = (EditText) findViewById(R.id.titre_an);
         this.desc = (EditText) findViewById(R.id.desc_an);
         this.prix = (EditText) findViewById(R.id.prix_an);
-        this.test = (EditText) findViewById(R.id.test);
 
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
@@ -68,30 +69,6 @@ public class PosteAnnonceActivity extends AppCompatActivity {
         });
 
     }
-
-    /*public void sendAnnoncePost(String titre, String desc, String prix){
-        String apikey = "21713885", method= "save",pseudo="alpha",emailContact="alpha@gmail.com", telContact="0682136682",
-        ville="Herouville",cp="14200";
-        apiInterface.createAnnonce(apikey, method, titre, desc, prix, pseudo, emailContact,telContact,ville,cp).enqueue(new Callback<Annonce>() {
-            @Override
-            public void onResponse(Call<Annonce> call, Response<Annonce> response) {
-
-                //showResponse(response.toString());
-                System.out.println("annonce sauvegardée avec succès"+response.body().toString());
-            }
-
-            @Override
-            public void onFailure(Call<Annonce> call, Throwable t) {
-                System.out.println("Impossible de sauvegarder l'annonce");
-                Log.e("Erreur post Annonnce", "Impossible de sauvegarder l'annonce");
-            }
-        });
-    }
-
-    public void showResponse(String response){
-
-
-    }*/
 
     public void saveAnnonce(final String titre, final String desc, final String prix) {
         String url = "https://ensweb.users.info.unicaen.fr/android-api/";
@@ -134,8 +111,6 @@ public class PosteAnnonceActivity extends AppCompatActivity {
     }) {
             @Override
             protected Map<String, String> getParams() {
-                /*final String apikey="", method= "save",pseudo="alpha",emailContact="alpha@gmail.com", telContact="0682136682",
-                        ville="Herouville",cp="14200";*/
                 SharedPreferences prefs  = getSharedPreferences(MY_PREF_NAME,MODE_PRIVATE);
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("apikey","21713885");
@@ -157,18 +132,17 @@ public class PosteAnnonceActivity extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
-/*public void getUploader(View view){
-    Intent intent = new Intent(this,UploaderActivity.class);
-    startActivity(intent);
-}*/
-protected  void myPreferences(){
-    SharedPreferences.Editor editor = getSharedPreferences(MY_PREF_NAME,MODE_PRIVATE).edit();
-    editor.putString("pseudo","alpha");
-    editor.putString("emailContact","alpha@gmail.com");
-    editor.putString("telContact","0682136682");
-    editor.putString("ville","Caen");
-    editor.putString("cp","14200");
-    editor.apply();
-}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuListner menuListner = new MenuListner(item);
+        menuListner.action(new View(PosteAnnonceActivity.this));
+        return super.onOptionsItemSelected(item);
+    }
 
 }

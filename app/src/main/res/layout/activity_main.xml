@@ -10,44 +10,4 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.a21713885.l3.unicaen.android.annonceapp.MainActivity">
 
-    <Button
-        android:id="@+id/voir_annonce"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="62dp"
-        android:text="Voir Annonce" />
-
-    <Button
-        android:id="@+id/deposer_annonce"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/voir_annonce"
-        android:layout_marginTop="34dp"
-        android:text="Déposer Annonce" />
-
-    <Button
-        android:id="@+id/lister_annones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/deposer_annonce"
-        android:layout_alignStart="@+id/deposer_annonce"
-        android:layout_below="@+id/deposer_annonce"
-        android:layout_marginTop="39dp"
-        android:text="Lister Annonces" />
-
-    <Button
-        android:id="@+id/profile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lister_annones"
-        android:layout_marginTop="39dp"
-        android:text="Mon Profile" />
-
 </RelativeLayout>

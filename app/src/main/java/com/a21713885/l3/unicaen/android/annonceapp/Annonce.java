@@ -223,4 +223,5 @@ public class Annonce implements Parcelable {
             return new Annonce[i];
         }
     };
+
 }

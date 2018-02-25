@@ -1,11 +1,16 @@
 package com.a21713885.l3.unicaen.android.annonceapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,7 +30,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class ListeAnnonceActivity extends AppCompatActivity{
-
     private  RecyclerView recyclerView;
     private List<Annonce> annonceList;
     private String url = "https://ensweb.users.info.unicaen.fr/android-api/?apikey=21713885&method=listAll";
@@ -35,6 +39,7 @@ public class ListeAnnonceActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_annonce);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar_liste));
         this.recyclerView = (RecyclerView) findViewById(R.id.liste_annonces);
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -52,6 +57,7 @@ public class ListeAnnonceActivity extends AppCompatActivity{
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
                         progressDialog.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -70,12 +76,19 @@ public class ListeAnnonceActivity extends AppCompatActivity{
                                         o.get("telContact").toString(), o.get("ville").toString(), o.get("cp").toString(),
                                         image, date);
                                 annonceList.add(annonce);
-
+                                Intent it = new Intent(getApplicationContext(),VoirAnnonceActivity.class);
+                                it.putExtra("Annonce",annonce);
                                 Log.d("debug liste get postal",annonceList.get(0).getCodePostal());
                             }
                             Log.d("debug liste",annonceList.toString());
                             adapter = new AnnonceAdapter(annonceList, getApplicationContext());
                             recyclerView.setAdapter(adapter);
+                            ArrayList<Annonce> listeAnnonces = new ArrayList<>();
+                            for(int i = 0 ; i<annonceList.size();i++)
+                                listeAnnonces.add(annonceList.get(i));
+                            Intent it = new Intent(getApplicationContext(),VoirAnnonceActivity.class);
+
+                            it.putParcelableArrayListExtra("ListeAnnonces",listeAnnonces);
                         } catch (Exception e) {
                             Toast.makeText(ListeAnnonceActivity.this, "EXCEPTION", Toast.LENGTH_SHORT).show();
                             Log.d("Exception de liste","Exception");
@@ -102,6 +115,19 @@ public class ListeAnnonceActivity extends AppCompatActivity{
         cal.setTimeInMillis(Long.parseLong(time_stamp));
         String date = android.text.format.DateFormat.format("dd-MM-yyyy",cal).toString();
         return date;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuListner menuListner = new MenuListner(item);
+        menuListner.action(new View(ListeAnnonceActivity.this));
+        return super.onOptionsItemSelected(item);
     }
 
 

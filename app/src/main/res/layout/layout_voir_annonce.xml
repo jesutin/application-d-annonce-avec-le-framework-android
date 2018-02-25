@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ImageViewActivity" >
-    <include layout="@layout/toolbar"
-        android:id="@+id/toolbarVA"/>
+    android:id="@+id/voir_annonces">
     <ScrollView
-        android:layout_below="@+id/toolbarVA"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
@@ -247,5 +243,4 @@
         </RelativeLayout>
     </ScrollView>
 
-
-</RelativeLayout>
+</LinearLayout>
