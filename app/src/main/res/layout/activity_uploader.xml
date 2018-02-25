@@ -53,7 +53,7 @@
         android:text="Ajouter" />
 
     <Button
-        android:id="@+id/cancel_upload"
+        android:id="@+id/finish_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/add_image"
@@ -61,7 +61,7 @@
         android:layout_alignRight="@+id/uploaded_img"
         android:layout_marginEnd="41dp"
         android:layout_marginRight="41dp"
-        android:text="Annuler" />
+        android:text="Terminer" />
 
     <TextView
         android:id="@+id/test1"

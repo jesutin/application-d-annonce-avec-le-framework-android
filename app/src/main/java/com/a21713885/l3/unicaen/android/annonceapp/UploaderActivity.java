@@ -20,9 +20,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.jar.Manifest;
 
@@ -39,7 +44,7 @@ import static android.R.string.ok;
 
 public class UploaderActivity extends AppCompatActivity {
     private  static final  int RESULT_LOAD_IMG=1;
-    private Button camera, gallery, ajouter;
+    private Button camera, gallery, ajouter, terminer;
     private ImageView image;
     private  static final MediaType MEDIA_TYPE_IMG = MediaType.parse("image/jpeg");
     private  File fichier;
@@ -53,6 +58,7 @@ public class UploaderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_uploader);
         image = (ImageView)findViewById(R.id.uploaded_img);
         gallery=(Button)findViewById(R.id.upload_gal);
+        terminer = (Button) findViewById(R.id.finish_upload);
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,8 +97,6 @@ public class UploaderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-
-
                 if(intent.resolveActivity(getPackageManager()) != null){
                     try {
                         fichier = recupererFichierImage();
@@ -108,8 +112,21 @@ public class UploaderActivity extends AppCompatActivity {
                 }
             }
         });
+
+        terminer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToVoirAnnonce();
+            }
+        });
     }
 
+    void goToVoirAnnonce(){
+        Intent intent = new Intent(this, VoirAnnonceActivity.class);
+
+        intent.putExtra("Annonce",annonce);
+        startActivity(intent);
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -193,7 +210,7 @@ public class UploaderActivity extends AppCompatActivity {
                 .addFormDataPart("method","addImage")
                 .addFormDataPart("id",id)
                 .addFormDataPart("photo",name,RequestBody.create(MEDIA_TYPE_IMG,image))
-                .build();
+                .build();  //
         Request  request = new Request.Builder()
                 .url("https://ensweb.users.info.unicaen.fr/android-api/")
                 .post(requestBody)
@@ -208,7 +225,30 @@ public class UploaderActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                System.out.println( "valeur de response " +response.body().string());
+                //System.out.println( "valeur de response " +response.body().string());
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(response.body().string());
+                    JSONObject o = (JSONObject)jsonObject.get("response");
+                    System.out.println(o.toString());
+                    ArrayList<String> image = new ArrayList<>();
+                    //creation de l'arraylist d'images
+                    JSONArray img = (JSONArray)o.get("images") ;
+                    System.out.println("images"+img);
+                    if (img.length()!=0)
+                    {
+                        for (int k = 0; k < img.length(); k++)
+                            image.add(img.get(k).toString());
+                    }
+                    String date = ListeAnnonceActivity.getDate(o.get("date").toString());
+                    annonce = new Annonce(o.get("id").toString(), o.get("titre").toString(), o.get("description").toString(),
+                            o.get("prix").toString(), o.get("pseudo").toString(), o.get("emailContact").toString(),
+                            o.get("telContact").toString(), o.get("ville").toString(), o.get("cp").toString(),
+                            image, date);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 //test.setText(response.toString());
             }
         });
