@@ -1,7 +1,6 @@
 package com.a21713885.l3.unicaen.android.annonceapp;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,8 +21,6 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -32,16 +29,18 @@ import java.util.Locale;
 public class ListeAnnonceActivity extends AppCompatActivity{
     private  RecyclerView recyclerView;
     private List<Annonce> annonceList;
-    private String url = "https://ensweb.users.info.unicaen.fr/android-api/?apikey=21713885&method=listAll";
+    private String url = "https://ensweb.users.info.unicaen.fr/android-api/?apikey=21712875&method=listAll";
     private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_annonce);
+        //ajout le toolbar à l'activity ListAnnonceActivity
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar_liste));
         this.recyclerView = (RecyclerView) findViewById(R.id.liste_annonces);
         this.recyclerView.setHasFixedSize(true);
+        //modifie le layout manager du recycler en lui donnant un linearLayoutManager
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         this.annonceList = new ArrayList<>();
 
@@ -49,15 +48,19 @@ public class ListeAnnonceActivity extends AppCompatActivity{
     }
 
     private void chargerListeAnnonces(){
+        // On créé un loader qui va s'executer jusqu'à ce la requete http ce termine
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Chargement des données...");
+        //Afficher le loader
         progressDialog.show();
 
+        // On utilise volley pour recuperer les annonces sur l'api
+        //on declare un objet StringReauest pour construire la requete
         StringRequest sRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        //Dès la fin d'execution de la requete , on arrete le loader
                         progressDialog.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -76,19 +79,16 @@ public class ListeAnnonceActivity extends AppCompatActivity{
                                         o.get("telContact").toString(), o.get("ville").toString(), o.get("cp").toString(),
                                         image, date);
                                 annonceList.add(annonce);
-                                Intent it = new Intent(getApplicationContext(),VoirAnnonceActivity.class);
-                                it.putExtra("Annonce",annonce);
-                                Log.d("debug liste get postal",annonceList.get(0).getCodePostal());
+
                             }
-                            Log.d("debug liste",annonceList.toString());
                             adapter = new AnnonceAdapter(annonceList, getApplicationContext());
                             recyclerView.setAdapter(adapter);
-                            ArrayList<Annonce> listeAnnonces = new ArrayList<>();
+                            /*ArrayList<Annonce> listeAnnonces = new ArrayList<>();
                             for(int i = 0 ; i<annonceList.size();i++)
                                 listeAnnonces.add(annonceList.get(i));
                             Intent it = new Intent(getApplicationContext(),VoirAnnonceActivity.class);
 
-                            it.putParcelableArrayListExtra("ListeAnnonces",listeAnnonces);
+                            it.putParcelableArrayListExtra("ListeAnnonces",listeAnnonces);*/
                         } catch (Exception e) {
                             Toast.makeText(ListeAnnonceActivity.this, "EXCEPTION", Toast.LENGTH_SHORT).show();
                             Log.d("Exception de liste","Exception");
@@ -109,6 +109,7 @@ public class ListeAnnonceActivity extends AppCompatActivity{
         requestQueue.add(sRequest);
     }
 
+    //methode pour formater le timestamp en format date dd-MM-yyyy
     public static String getDate(String time_stamp){
 
         Calendar cal = Calendar.getInstance(Locale.FRANCE);
@@ -117,6 +118,7 @@ public class ListeAnnonceActivity extends AppCompatActivity{
         return date;
     }
 
+    // creer le menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
@@ -125,6 +127,7 @@ public class ListeAnnonceActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Creation d' une instance de MenuListener et appel de sa methode action
         MenuListner menuListner = new MenuListner(item);
         menuListner.action(new View(ListeAnnonceActivity.this));
         return super.onOptionsItemSelected(item);

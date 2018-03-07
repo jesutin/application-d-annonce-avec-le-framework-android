@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Created by amadou on 03/02/18.
+ * Created by  Jonas , Morteza, Alpha, Amadou on 03/02/18.
  */
 
 public class ImageAdapter extends PagerAdapter {

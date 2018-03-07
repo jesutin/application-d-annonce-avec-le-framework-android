@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.a21713885.l3.unicaen.android.annonceapp.ListeAnnonceActivity">
+
+
     <include layout="@layout/toolbar"
         android:id="@+id/toolbar_liste"
         />

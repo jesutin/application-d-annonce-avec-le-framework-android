@@ -1,28 +1,20 @@
 package com.a21713885.l3.unicaen.android.annonceapp;
 
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by amadou on 23/02/18.
+ * Created by  Jonas , Morteza, Alpha, Amadou 23/02/18.
  */
 
 public class MenuListner {
@@ -32,20 +24,23 @@ public class MenuListner {
         this.item=item;
     }
     public void action(View view) {
+        //si on choisi l'item liste annonce on appel methode listeAnnoncesListner
         if(item.getItemId()==R.id.liste_annonces_menu){
             listeAnnoncesListner(view);
         }
 
+        //si on choisi l'item Poster une Annonce on appel methode posteAnnonce
         if(item.getItemId()==R.id.post_annonce_menu){
             posteAnnonce(view);
          }
 
+        //si on choisi l'item profil on appel l'activity preferencesActivity
         if(item.getItemId()==R.id.pref_menu){
             Intent intent = new Intent(view.getContext(),PreferencesActivity.class);
             view.getContext().startActivity(intent);
         }
 
-
+        //si on choisi l'item voir Annonce on appel methode voirAnnonceListener
         if(item.getItemId()==R.id.voir_annonce_menu){
             try {
                 voirAnnonceListner(view);
@@ -53,6 +48,7 @@ public class MenuListner {
 
         }
 
+        //si on choisi l'item choisi est quitter on ferme l'application
         if(item.getItemId() == R.id.quitter_menu){
             Intent intent = new Intent(view.getContext(), MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -66,17 +62,20 @@ public class MenuListner {
     }
 
 
-
+    //appel de l'activity voirAnnonce
     private void voirAnnonceListner(View view) throws IOException
     {
-        getRequest("https://ensweb.users.info.unicaen.fr/android-api/?apikey=21713885&method=randomAd",view);
+        getRequest("https://ensweb.users.info.unicaen.fr/android-api/?apikey=21712875&method=randomAd",view);
     }
+
+    //appel de l'activity ListeAnnonce
     private void listeAnnoncesListner(View view)
     {
         Intent intent = new Intent(view.getContext(),ListeAnnonceActivity.class);
         view.getContext().startActivity(intent);
     }
 
+    //appel de l'activity voir annonce avec une annonce aléatoire récupéré sur l API
     protected void getRequest(String url, final View view) throws IOException{
         StringRequest sRequest = new StringRequest(com.android.volley.Request.Method.GET, url,
                 new com.android.volley.Response.Listener<String>() {
@@ -123,6 +122,8 @@ public class MenuListner {
         requestQueue.add(sRequest);
     }
 
+
+    //appel de l'activity posterAnnonce
     private  void posteAnnonce (View view)
     {
         Intent intent = new Intent(view.getContext(), PosteAnnonceActivity.class);

@@ -1,20 +1,16 @@
 package com.a21713885.l3.unicaen.android.annonceapp;
 
-import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -29,17 +25,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class PosteAnnonceActivity extends AppCompatActivity {
 
     private EditText titre;
     private EditText desc;
     private EditText prix;
-    private ApiInterface apiInterface;
     public static  final String MY_PREF_NAME = "preferences";
 
     @Override
@@ -51,7 +41,6 @@ public class PosteAnnonceActivity extends AppCompatActivity {
         this.desc = (EditText) findViewById(R.id.desc_an);
         this.prix = (EditText) findViewById(R.id.prix_an);
 
-        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         Button poster = (Button) findViewById(R.id.post);
 
@@ -74,16 +63,11 @@ public class PosteAnnonceActivity extends AppCompatActivity {
         String url = "https://ensweb.users.info.unicaen.fr/android-api/";
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        //String url ="http://www.google.com";
 
-// Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        //*******
-                        //test.setText(response.toString());
                         Intent intent = new Intent(PosteAnnonceActivity.this,UploaderActivity.class);
                         try {
                             JSONObject resp = new JSONObject(response);
@@ -113,7 +97,7 @@ public class PosteAnnonceActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 SharedPreferences prefs  = getSharedPreferences(MY_PREF_NAME,MODE_PRIVATE);
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("apikey","21713885");
+                params.put("apikey","21712875");
                 params.put("method","save");
                 params.put("titre",titre);
                 params.put("description",desc);

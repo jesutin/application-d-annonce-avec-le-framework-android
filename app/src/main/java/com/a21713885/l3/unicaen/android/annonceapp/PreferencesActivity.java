@@ -76,6 +76,8 @@ public class PreferencesActivity extends AppCompatActivity {
         cp.setText(prefs.getString("cp","000000"));
     }
 
+
+    //ajout du menu au toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);

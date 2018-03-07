@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by djelo bah on 01-02-18.
+ * Created by  Jonas , Morteza, Alpha, Amadou on 19/01/18.
  */
 
 public class AnnonceAdapter extends RecyclerView.Adapter<AnnonceAdapter.ViewHolder> {
