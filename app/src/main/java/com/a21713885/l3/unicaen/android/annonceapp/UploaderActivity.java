@@ -146,6 +146,7 @@ public class UploaderActivity extends AppCompatActivity {
         }
     }
 
+    //Recuperation de l'images
     public File recupererFichierImage() throws IOException{
         File repertoire = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "AnnoncesPhoto");
 
@@ -160,6 +161,7 @@ public class UploaderActivity extends AppCompatActivity {
         return new File(repertoire.getPath() + File.separator + "IMG_" + timeStamp + ".jpeg");
     }
 
+    //ouverture de la gallery
     public void openGallery(View view){
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/jpeg");
@@ -271,6 +273,7 @@ public class UploaderActivity extends AppCompatActivity {
         });
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

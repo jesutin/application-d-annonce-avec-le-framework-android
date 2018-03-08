@@ -4,9 +4,16 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
+
+/*
+*Activity d'entré de la fonction cette activity ne se contente d'appeler directement la liste d'annonce
+* une fois l'application lancé.
+* elle est également chargé de tuer tous les processus de l'application quand on click sur l'item quitter
+* à partire de n'importe quelle activity
+*
+ */
 public class MainActivity extends AppCompatActivity {
-private  Button voirAnnonce,listeAnnonce;
-    private Button posteAnnonce, monProfil;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,11 +25,7 @@ private  Button voirAnnonce,listeAnnonce;
         listeAnnoncesListner();
     }
 
-
-
-
-
-
+    //Methode appelant l'intent des liste d'annonces
     private void listeAnnoncesListner()
     {
         Intent intent = new Intent(this,ListeAnnonceActivity.class);

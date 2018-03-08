@@ -29,17 +29,20 @@ import java.util.Locale;
 public class ListeAnnonceActivity extends AppCompatActivity{
     private  RecyclerView recyclerView;
     private List<Annonce> annonceList;
-    private String url = "https://ensweb.users.info.unicaen.fr/android-api/?apikey=21712875&method=listAll";
+    private final String url = "https://ensweb.users.info.unicaen.fr/android-api/?apikey=21712875&method=listAll";
     private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_annonce);
+
         //ajout le toolbar à l'activity ListAnnonceActivity
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar_liste));
+
         this.recyclerView = (RecyclerView) findViewById(R.id.liste_annonces);
         this.recyclerView.setHasFixedSize(true);
+
         //modifie le layout manager du recycler en lui donnant un linearLayoutManager
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         this.annonceList = new ArrayList<>();
@@ -55,53 +58,55 @@ public class ListeAnnonceActivity extends AppCompatActivity{
         progressDialog.show();
 
         // On utilise volley pour recuperer les annonces sur l'api
-        //on declare un objet StringReauest pour construire la requete
+        //on declare un objet StringRequest pour construire la requete
         StringRequest sRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //Dès la fin d'execution de la requete , on arrete le loader
-                        progressDialog.dismiss();
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            JSONArray jsonArray = jsonObject.getJSONArray("response");
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                //Dès la fin d'execution de la requete , on arrete le loader
+                progressDialog.dismiss();
+                try {
+                        //creation d'un json object a partir de la reponse de l'api
+                        JSONObject jsonObject = new JSONObject(response);
+                        JSONArray jsonArray = jsonObject.getJSONArray("response");
 
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject o = jsonArray.getJSONObject(i);
-                                JSONArray img = o.getJSONArray("images");
-                                ArrayList<String> image = new ArrayList<>();
-                                //creation de l'arraylist d'images
-                                for (int k = 0; k < img.length(); k++)
-                                 image.add(img.get(k).toString());
-                                String date = getDate(o.get("date").toString());
-                                Annonce annonce = new Annonce(o.get("id").toString(), o.get("titre").toString(), o.get("description").toString(),
-                                        o.get("prix").toString(), o.get("pseudo").toString(), o.get("emailContact").toString(),
-                                        o.get("telContact").toString(), o.get("ville").toString(), o.get("cp").toString(),
-                                        image, date);
-                                annonceList.add(annonce);
+                        //parcour du json array
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject o = jsonArray.getJSONObject(i);
+                            JSONArray img = o.getJSONArray("images");
+                            ArrayList<String> image = new ArrayList<>();
+                            //creation de l'arraylist d'images
+                            for (int k = 0; k < img.length(); k++)
+                                image.add(img.get(k).toString());
 
-                            }
-                            adapter = new AnnonceAdapter(annonceList, getApplicationContext());
-                            recyclerView.setAdapter(adapter);
-                            /*ArrayList<Annonce> listeAnnonces = new ArrayList<>();
-                            for(int i = 0 ; i<annonceList.size();i++)
-                                listeAnnonces.add(annonceList.get(i));
-                            Intent it = new Intent(getApplicationContext(),VoirAnnonceActivity.class);
+                            //formatage de la date
+                            String date = getDate(o.get("date").toString());
 
-                            it.putParcelableArrayListExtra("ListeAnnonces",listeAnnonces);*/
-                        } catch (Exception e) {
-                            Toast.makeText(ListeAnnonceActivity.this, "EXCEPTION", Toast.LENGTH_SHORT).show();
-                            Log.d("Exception de liste","Exception");
+                            //creation d'un annonce et son ajout dans la liste des annonces
+                            Annonce annonce = new Annonce(o.get("id").toString(), o.get("titre").toString(), o.get("description").toString(),
+                                    o.get("prix").toString(), o.get("pseudo").toString(), o.get("emailContact").toString(),
+                                    o.get("telContact").toString(), o.get("ville").toString(), o.get("cp").toString(),
+                                    image, date);
+                            annonceList.add(annonce);
+
                         }
-
+                        adapter = new AnnonceAdapter(annonceList, getApplicationContext());
+                        recyclerView.setAdapter(adapter);
+                    }
+                    catch (Exception e)
+                    {
+                        Toast.makeText(ListeAnnonceActivity.this, "EXCEPTION", Toast.LENGTH_SHORT).show();
+                        Log.d("Exception de liste","Exception");
                     }
 
-                }, new Response.ErrorListener() {
+                }
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(ListeAnnonceActivity.this, "ERREUR", Toast.LENGTH_SHORT).show();
+            }, new Response.ErrorListener() {
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            progressDialog.dismiss();
+            Toast.makeText(ListeAnnonceActivity.this, "ERREUR", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -118,13 +123,14 @@ public class ListeAnnonceActivity extends AppCompatActivity{
         return date;
     }
 
-    // creer le menu
+    // ajout du menu à la toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    //ajout des evenements au items du menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Creation d' une instance de MenuListener et appel de sa methode action

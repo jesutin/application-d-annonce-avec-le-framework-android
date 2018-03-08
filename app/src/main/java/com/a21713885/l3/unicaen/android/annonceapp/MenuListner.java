@@ -17,12 +17,20 @@ import java.util.ArrayList;
  * Created by  Jonas , Morteza, Alpha, Amadou 23/02/18.
  */
 
+/*
+*MenuListnet est une classe qui va nous permettre de pas faire de redondance de code a chaque fois
+* que nous voulons attribuer une action suite au choix d'un item de menu, nous faisons appelle a
+* une instance de MenuListener qui appelle la methode action qui se charge de l'action a effectuer
+ */
+
 public class MenuListner {
 
     private MenuItem item;
     public MenuListner(MenuItem item){
         this.item=item;
     }
+
+    //action prend en entré un item du menu et en fonction de l'identifiant de l'item une action précise est choisie
     public void action(View view) {
         //si on choisi l'item liste annonce on appel methode listeAnnoncesListner
         if(item.getItemId()==R.id.liste_annonces_menu){

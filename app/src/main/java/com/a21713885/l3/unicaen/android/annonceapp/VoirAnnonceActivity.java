@@ -118,10 +118,10 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
         startActivity(intent);
     }
     private void getMailListener(View view, String mail, String titre){
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setData(Uri.parse("mailto:"));
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_EMAIL, mail);
+        intent.putExtra(Intent.EXTRA_EMAIL  , new String[]{mail});
         intent.putExtra(Intent.EXTRA_SUBJECT, titre);
         startActivity(intent);
     }

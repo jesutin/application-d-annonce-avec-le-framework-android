@@ -75,7 +75,6 @@ public class AnnonceAdapter extends RecyclerView.Adapter<AnnonceAdapter.ViewHold
         TextView id = (TextView) view.findViewById(R.id.id_item);
         Annonce annonce = list.get(Integer.valueOf(id.getText().toString()));
 
-        Toast.makeText(view.getContext(), annonce.getId(), Toast.LENGTH_SHORT).show();
         intent.putExtra("Annonce",annonce);
         view.getContext().startActivity(intent);
     }
