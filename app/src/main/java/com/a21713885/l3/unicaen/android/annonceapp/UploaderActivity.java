@@ -1,14 +1,20 @@
 package com.a21713885.l3.unicaen.android.annonceapp;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -45,10 +51,10 @@ import okhttp3.Response;
 
 
 public class UploaderActivity extends AppCompatActivity {
-    private  static final  int RESULT_LOAD_IMG=1;
+    private  static final MediaType MEDIA_TYPE_IMG = MediaType.parse("image/jpeg");
+    private static final int RESULT_LOAD_IMG=1;
     private Button camera, gallery, ajouter, terminer;
     private ImageView image;
-    private  static final MediaType MEDIA_TYPE_IMG = MediaType.parse("image/jpeg");
     private  File fichier;
     private Annonce annonce;
     private Uri fichierUri;
@@ -73,10 +79,10 @@ public class UploaderActivity extends AppCompatActivity {
             public void onClick(View view){
                 try {
 
-                    Toast.makeText(UploaderActivity.this,"dans le try",Toast.LENGTH_SHORT).show();
-                    Toast.makeText(UploaderActivity.this,"fichier "+ fichier.getPath(),Toast.LENGTH_SHORT).show();
                     if(fichier != null)
+                    {
                         uploaderImage(fichier,"image.jpg", annonce.getId());
+                    }
                     else{
                         fichier = new File(fichierUri.getPath());
                         uploaderImage(fichier,"image.jpg", annonce.getId());
@@ -84,7 +90,6 @@ public class UploaderActivity extends AppCompatActivity {
 
                 }catch (Exception e){
                     System.out.println("------------- ");e.printStackTrace();
-                    Toast.makeText(UploaderActivity.this,"dans le catch",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -101,6 +106,7 @@ public class UploaderActivity extends AppCompatActivity {
                 Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 if(intent.resolveActivity(getPackageManager()) != null){
                     try {
+                        // creation d'un fichier avec nom unique
                         fichier = recupererFichierImage();
                     }catch (IOException e){
                         System.out.println("Erreur lors de la recuperation de l'image "+e.getMessage());
@@ -129,6 +135,7 @@ public class UploaderActivity extends AppCompatActivity {
         intent.putExtra("Annonce",annonce);
         startActivity(intent);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -139,6 +146,7 @@ public class UploaderActivity extends AppCompatActivity {
         }
     }
 
+    //Recuperation de l'images
     public File recupererFichierImage() throws IOException{
         File repertoire = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "AnnoncesPhoto");
 
@@ -153,11 +161,15 @@ public class UploaderActivity extends AppCompatActivity {
         return new File(repertoire.getPath() + File.separator + "IMG_" + timeStamp + ".jpeg");
     }
 
+    //ouverture de la gallery
     public void openGallery(View view){
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/jpeg");
         startActivityForResult(intent, RESULT_LOAD_IMG);
     }
+
+
+    // callback declanché par la methode startActivityForResult pour renvoyer l'image créée ou chargée
     protected void onActivityResult(int resquestCode, int resultCode, Intent data){
         super.onActivityResult(resquestCode,resultCode,data);
         //si l'image est recupérée
@@ -166,10 +178,8 @@ public class UploaderActivity extends AppCompatActivity {
 
                 //recuperer l'image a partir de data
                 Uri selectedImage = data.getData();
-                Toast.makeText(this,"URI"+selectedImage.toString(),Toast.LENGTH_SHORT).show();
-                Log.d("------Image--------", "URI"+selectedImage.toString());
-                System.out.println("URI"+selectedImage.toString());
                 String[] filePath = {MediaStore.Images.Media.DATA};
+
                 //recuperer le curseur
                 Cursor cursor = getContentResolver().query(selectedImage,
                 filePath,null,null,null);
@@ -177,13 +187,9 @@ public class UploaderActivity extends AppCompatActivity {
                 int columnIndex = cursor.getColumnIndex(filePath[0]);
 
                 String imgDecodableString = cursor.getString(columnIndex);
-                Toast.makeText(this,"imageDecodable"+imgDecodableString,Toast.LENGTH_SHORT).show();
-                Log.d("------Image--------", "imageDecodable"+imgDecodableString);
-                System.out.println("imageDecodable"+imgDecodableString);
                 fichier = new File(imgDecodableString);
                 cursor.close();
-                Log.d("------Image--------", "Chemin fichier"+fichier.getPath());
-                    image.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
+                image.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
 
             }
             catch (Exception e)
@@ -200,33 +206,45 @@ public class UploaderActivity extends AppCompatActivity {
         }
         else {
             System.out.println("aucune image choisie");
-            //Log.d("------Image--------", "Erreur de chargement de fichier"+fichier.getPath());
             Toast.makeText(this,"aucune image choisie",Toast.LENGTH_SHORT).show();
         }
 
     }
 
+    // methode pour envoyer une image à l'API
     public void uploaderImage(File image, String name, String id) throws IOException{
+        // Instanciation de l'objet OkHttp pour l'envoie
         OkHttpClient client = new OkHttpClient();
+
+        //construction du corps de la requete à partir de l'objet RequestBody
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("apikey","21713885")
+                .addFormDataPart("apikey","21712875")
                 .addFormDataPart("method","addImage")
                 .addFormDataPart("id",id)
                 .addFormDataPart("photo",name,RequestBody.create(MEDIA_TYPE_IMG,image))
                 .build();
+
+        //construction de la requete à partir de l'objet Request
         Request  request = new Request.Builder()
                 .url("https://ensweb.users.info.unicaen.fr/android-api/")
                 .post(requestBody)
                 .build();
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Ajout de l'image en cours...");
+        //Afficher le loader
+        progressDialog.show();
+        // callback de la requete
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 System.out.println( "Erreur ajout imag"+e.getMessage());
                 e.printStackTrace();
-
+                progressDialog.dismiss();
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                progressDialog.dismiss();
+
                 //System.out.println( "valeur de response " +response.body().string());
                 JSONObject jsonObject = null;
                 try {
@@ -247,15 +265,15 @@ public class UploaderActivity extends AppCompatActivity {
                             o.get("prix").toString(), o.get("pseudo").toString(), o.get("emailContact").toString(),
                             o.get("telContact").toString(), o.get("ville").toString(), o.get("cp").toString(),
                             image, date);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                //test.setText(response.toString());
             }
         });
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

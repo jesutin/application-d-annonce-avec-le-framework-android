@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by djelo bah on 01-02-18.
+ * Created by  Jonas , Morteza, Alpha, Amadou on 19/01/18.
  */
 
 public class AnnonceAdapter extends RecyclerView.Adapter<AnnonceAdapter.ViewHolder> {
@@ -75,7 +75,6 @@ public class AnnonceAdapter extends RecyclerView.Adapter<AnnonceAdapter.ViewHold
         TextView id = (TextView) view.findViewById(R.id.id_item);
         Annonce annonce = list.get(Integer.valueOf(id.getText().toString()));
 
-        Toast.makeText(view.getContext(), annonce.getId(), Toast.LENGTH_SHORT).show();
         intent.putExtra("Annonce",annonce);
         view.getContext().startActivity(intent);
     }

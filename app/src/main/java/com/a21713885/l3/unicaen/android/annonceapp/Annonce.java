@@ -3,64 +3,34 @@ package com.a21713885.l3.unicaen.android.annonceapp;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by amadou on 19/01/18.
+ * Created by  Jonas , Morteza, Alpha, Amadou on 19/01/18.
+ *
  */
-
+/*
+*   FICHIER CLASS ANNONCE
+*
+*/
 public class Annonce implements Parcelable {
-    @SerializedName("id")
-    @Expose
     private String id;
-    @SerializedName("titre")
-    @Expose
     private String titre;
-
-    @SerializedName("description")
-    @Expose
     private String description;
-
-    @SerializedName("prix")
-    @Expose
     private String price;
-
-    @SerializedName("pseudo")
-    @Expose
     private String pseudo;
-
-    @SerializedName("emailContact")
-    @Expose
     private String emailContact;
-
-    @SerializedName("telContact")
-    @Expose
     private String telContact;
-
-    @SerializedName("ville")
-    @Expose
     private String ville;
-
-    @SerializedName("cp")
-    @Expose
     private String codePostal;
-
-    @SerializedName("images")
-    @Expose
     private ArrayList<String> images = new ArrayList<>();
-
-    @SerializedName("date")
-    @Expose
     private String date;
+
 
     public Annonce(String id, String titre, String description, String price,
                    String pseudo, String emailContact, String telContact,
-                   String ville, String codePostal, ArrayList<String> images, String date) {
+                   String ville, String codePostal, ArrayList<String> images, String date)
+    {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -75,21 +45,7 @@ public class Annonce implements Parcelable {
 
     }
 
-    public Annonce(String titre, String description, String price,
-                   String pseudo, String emailContact, String telContact,
-                   String ville, String codePostal, ArrayList<String> images) {
-        this.titre = titre;
-        this.description = description;
-        this.price = price;
-        this.pseudo = pseudo;
-        this.emailContact = emailContact;
-        this.telContact = telContact;
-        this.ville = ville;
-        this.codePostal = codePostal;
-        this.images = images;
-
-    }
-
+    //Contruction d'une annonce parcelable
     public Annonce(Parcel parcel){
         this.id = parcel.readString();
         this.titre = parcel.readString();
@@ -104,7 +60,7 @@ public class Annonce implements Parcelable {
         this.date = parcel.readString();
     }
 
-    public  Annonce(){}
+    // accesseurs et muttateurs
     public String getId() {
         return id;
     }
@@ -193,12 +149,14 @@ public class Annonce implements Parcelable {
         this.date = date;
     }
 
+    //Override des methodes de la l'interface parcelable
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
+    //création d'un objet parcel contenant les atribut de l annonce
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id);
         parcel.writeString(titre);
@@ -212,6 +170,7 @@ public class Annonce implements Parcelable {
         parcel.writeList(images);
         parcel.writeString(date);
     }
+
     public static final Parcelable.Creator<Annonce> CREATOR = new Creator<Annonce>() {
         @Override
         public Annonce createFromParcel(Parcel parcel) {

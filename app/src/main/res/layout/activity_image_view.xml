@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ImageViewActivity" >
+    <!-- inclision du toolbar -->
     <include layout="@layout/toolbar"
         android:id="@+id/toolbar_imgV"/>
     <android.support.v4.view.ViewPager
-        android:layout_below="@+id/monMenu"
+        android:layout_below="@+id/toolbar_imgV"
         android:id="@+id/affichage_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

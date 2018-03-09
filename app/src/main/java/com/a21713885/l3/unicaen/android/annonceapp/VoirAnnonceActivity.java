@@ -1,37 +1,19 @@
 package com.a21713885.l3.unicaen.android.annonceapp;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -44,13 +26,11 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
     private Annonce annonce;
     HashMap<String, String> HashMapForURL ;
     SliderLayout sliderLayout ;
-    ArrayList<Annonce> listeAnnonces;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voir_annonce);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbarVA));
-        //ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         annonce = getIntent().getExtras().getParcelable("Annonce");
 
         TextView desc = (TextView) findViewById(R.id.description),
@@ -62,7 +42,7 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
                 name = (TextView) findViewById(R.id.nom),
                 mail = (TextView) findViewById(R.id.mail),
                 tel = (TextView) findViewById(R.id.telephone);
-        SliderLayout sliderLayout = (SliderLayout) findViewById(R.id.image_annonce);
+        sliderLayout = (SliderLayout) findViewById(R.id.image_annonce);
 
         titre.setText(annonce.getTitre().toString());
         pri.setText(annonce.getPrice().toString());
@@ -89,8 +69,6 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
                     .setOnSliderClickListener(this);
 
             textSliderView.bundle(new Bundle());
-            //Toast.makeText(VoirAnnonceActivity.this, image.get(0).toString(), Toast.LENGTH_SHORT).show();
-
             textSliderView.getBundle()
                     .putString("extra",name2);
 
@@ -108,24 +86,7 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
 
         sliderLayout.addOnPageChangeListener(this);
 
-        //Toast.makeText(VoirAnnonceActivity.this, image.get(0).toString(), Toast.LENGTH_SHORT).show();
-        /*if (image.size() == 0) {
-            Picasso.with(VoirAnnonceActivity.this).
-                    load(R.drawable.feu).
-                    into(iv);
-        } else {
-            Picasso.with(VoirAnnonceActivity.this).
-                    load(image.get(0).toString()).
-                    into(iv);
-        }*/
 
-        /*SliderLayout listeImage=(SliderLayout) findViewById(R.id.image_annonce);
-        listeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getImageListner(view,annonce);
-            }
-        });*/
         final String numero = tel.getText().toString();
         tel.setOnClickListener(new View.OnClickListener() {
 
@@ -134,8 +95,10 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
                 getNumeroListener(view,numero);
             }
         });
+
         final String e_mail =mail.getText().toString(),
                 titre_mail =titre.getText().toString()  ;
+
         mail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +109,7 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
     private void getImageListner(Annonce annonce)
     {
         Intent intent = new Intent(this,ImageViewActivity.class);
-        intent.putExtra("images", annonce);
+        intent.putExtra("annonce", annonce);
         startActivity(intent);
     }
 
@@ -158,7 +121,7 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setData(Uri.parse("mailto:"));
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_EMAIL, mail);
+        intent.putExtra(Intent.EXTRA_EMAIL  , new String[]{mail});
         intent.putExtra(Intent.EXTRA_SUBJECT, titre);
         startActivity(intent);
     }
@@ -173,36 +136,6 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
         }
 
     }
-
-   /* public void fillSlider(ArrayList<String> listeImages){
-        this.sliderLayout = (SliderLayout)findViewById(R.id.image_annonce);
-        AddImages(listeImages);
-        for(String name : HashMapForURL.keySet()){
-            TextSliderView textSliderView = new TextSliderView(VoirAnnonceActivity.this);
-
-            textSliderView
-                    .description(name)
-                    .image(HashMapForURL.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    ;
-
-            textSliderView.bundle(new Bundle());
-
-            textSliderView.getBundle()
-                    .putString("extra",name);
-
-            sliderLayout.addSlider(textSliderView);
-        }
-        sliderLayout.setPresetTransformer(SliderLayout.Transformer.DepthPage);
-
-        sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-
-        sliderLayout.setCustomAnimation(new DescriptionAnimation());
-
-        sliderLayout.setDuration(3000);
-
-        sliderLayout.addOnPageChangeListener(VoirAnnonceActivity.this);
-    }*/
 
     @Override
     public void onSliderClick(BaseSliderView slider) {
@@ -224,12 +157,15 @@ public class VoirAnnonceActivity extends AppCompatActivity implements BaseSlider
 
     }
 
+    //creer menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+
+    //evenement associé au item de menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         MenuListner menuListner = new MenuListner(item);

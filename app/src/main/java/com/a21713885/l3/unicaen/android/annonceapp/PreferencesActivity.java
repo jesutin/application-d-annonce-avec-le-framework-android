@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+//gestion du profil de l'annonceur
+
 public class PreferencesActivity extends AppCompatActivity {
     public static  final String MY_PREF_NAME = "preferences";
     TextView pseudo, mail,tel,cp,ville;
@@ -42,7 +44,7 @@ public class PreferencesActivity extends AppCompatActivity {
             }
         });
     }
-
+    //Création des preferences de l'annonceur
     protected  void myPreferences(){
         SharedPreferences.Editor editor = getSharedPreferences(MY_PREF_NAME,MODE_PRIVATE).edit();
         editor.putString("pseudo",pseudo.getText().toString());
@@ -53,6 +55,7 @@ public class PreferencesActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    //grise les gens des preferences quand on lance l'intent preferences ou quand l'annonceur valide ces modification
     public void griser(){
         pseudo.setEnabled(false);
         mail.setEnabled(false);
@@ -60,6 +63,8 @@ public class PreferencesActivity extends AppCompatActivity {
         cp.setEnabled(false);
         ville.setEnabled(false);
     }
+
+    //active les champs des preferences quand l'annonceur veux les modifier
     public void activer(){
         pseudo.setEnabled(true);
         mail.setEnabled(true);
@@ -67,6 +72,7 @@ public class PreferencesActivity extends AppCompatActivity {
         cp.setEnabled(true);
         ville.setEnabled(true);
     }
+    // remplir les champs des preferences par les preferences de l'annonceur ou avec des valeurs par défaut s'ils ne sont pas renseigné
     public void fillchamps(){
         SharedPreferences prefs  = getSharedPreferences(MY_PREF_NAME,MODE_PRIVATE);
         pseudo.setText(prefs.getString("pseudo","nom"));
@@ -76,6 +82,8 @@ public class PreferencesActivity extends AppCompatActivity {
         cp.setText(prefs.getString("cp","000000"));
     }
 
+
+    //ajout du menu au toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
